@@ -7,6 +7,8 @@ namespace tp032021_br1595.Models
 {
     public class Cliente
     {
+        private static int NumeroCliente = 0;
+
         private int id;
         private string nombre;
         private string direccion;
@@ -19,10 +21,10 @@ namespace tp032021_br1595.Models
     
         void AgregarCliente(string _Nombre, string _Direccion, string _Telefono)
         {
-            Id = ;
-            Nombre = _Nombre;
-            Direccion = _Direccion;
-            Telefono = _Telefono
+            this.id = NumeroCliente++;
+            this.Nombre = _Nombre;
+            this.Direccion = _Direccion;
+            this.Telefono = _Telefono;
         }
     }
 }
