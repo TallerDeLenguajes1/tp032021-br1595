@@ -36,6 +36,5 @@ namespace tp032021_br1595.Models
             listadoPedidos.Add(_Pedido);
         }
 
-        public void QuitarPedido() { }
     }
 }

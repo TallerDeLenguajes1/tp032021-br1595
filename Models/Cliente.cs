@@ -19,7 +19,8 @@ namespace tp032021_br1595.Models
         public string Direccion { get => direccion; set => direccion = value; }
         public string Telefono { get => telefono; set => telefono = value; }
     
-        void AgregarCliente(string _Nombre, string _Direccion, string _Telefono)
+        
+        public Cliente(string _Nombre, string _Direccion, string _Telefono)
         {
             this.id = NumeroCliente++;
             this.Nombre = _Nombre;

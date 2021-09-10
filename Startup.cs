@@ -8,11 +8,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using tp032021_br1595.Models;
 
 namespace tp032021_br1595
 {
     public class Startup
     {
+        static List<Cadete> listadoCadetes = new List<Cadete>();
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -23,12 +25,10 @@ namespace tp032021_br1595
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-        }/*
-        public void ConfigureServices(IServiceCollection services)
-        {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-        }*/
+            services.AddSingleton(listadoCadetes);
+        }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
