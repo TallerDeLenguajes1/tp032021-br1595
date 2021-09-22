@@ -23,11 +23,11 @@ namespace tp032021_br1595.Controllers
             _dB = DB;
         }
 
-        public IActionResult CreadorCadete()
+        public IActionResult AltaCadete()
         {
             return View();
         }
-        public IActionResult AltaCadete(string _Nombre, string _Direccion, string _Telefono)
+        public IActionResult AgregarCadete(string _Nombre, string _Direccion, string _Telefono)
         {
             if (_Nombre != null || _Direccion != null || _Telefono != null)
             {

@@ -20,7 +20,7 @@ namespace tp032021_br1595.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            return View(_dB.Cadeteria.Cadetes);
         }
     }
 }
