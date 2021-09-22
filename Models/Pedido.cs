@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace tp032021_br1595.Models
+namespace EntidadesSistema
 {
-    public class Pedidos
+    public class Pedido
     {
         private int numero;
         private string observacion;
@@ -16,5 +16,16 @@ namespace tp032021_br1595.Models
         public string Observacion { get => observacion; set => observacion = value; }
         public Cliente Destinatario { get => destinatario; set => destinatario = value; }
         public string Estado { get => estado; set => estado = value; }
+
+
+        public Pedido() { }
+        public Pedido(int _Numero, string _Observacion, string _Estado, string _DNI, string _Nombre, string _Direccion, string _Telefono)
+        {
+            Destinatario = new Cliente(_DNI, _Nombre, _Direccion, _Telefono);
+            Numero = _Numero;
+            Observacion = _Observacion;
+            Estado = _Estado;
+        }
+
     }
 }

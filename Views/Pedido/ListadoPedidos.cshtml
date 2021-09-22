@@ -1,0 +1,19 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model List<EntidadesSistema.Pedido>
+<div class="text-center">
+    <h1 class="display-4">Listado de Pedidos</h1>
+
+    @foreach (var item in Model)
+    {
+        <h3>Nro = @item.Numero</h3>
+        <h3>Cliente = @item.Destinatario.Nombre</h3>
+        <h3>Obs = @item.Observacion</h3>
+        <h3>Direccion = @item.Destinatario.Direccion</h3>
+
+        <brbr/>
+    }
+
+</div>

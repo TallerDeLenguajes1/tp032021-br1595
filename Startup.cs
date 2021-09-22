@@ -8,13 +8,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using tp032021_br1595.Models;
+using EntidadesSistema;
+using NLog;
 
 namespace tp032021_br1595
 {
     public class Startup
     {
-        static List<Cadete> listadoCadetes = new List<Cadete>();
+        //static List<Cadete> ListadoCadetes = new List<Cadete>();
+        static DBTemporal DB = new DBTemporal();
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -25,8 +28,9 @@ namespace tp032021_br1595
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddSingleton(Nlog.LogManager.GetCurrentClassLogger());
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            services.AddSingleton(listadoCadetes);
+            services.AddSingleton(DB);//importante en esta altura del cursado
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

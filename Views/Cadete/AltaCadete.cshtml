@@ -1,0 +1,24 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Pagina de cadetes";
+}
+
+<div class="text-center">
+    <form asp-controller = "Cadete" asp-action="AltaCadete" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="_Nombre" name="_Nombre" required>
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label">Direccion</label>
+            <input type="text" class="form-control" id="_Direccion" name="_Direccion" required>
+        </div>
+        <div class="mb-3">
+            <label for="phoneNumber" class="form-label">Telefono</label>
+            <input type="text" class="form-control" id="_Telefono" name="_Telefono" required>
+        </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>
