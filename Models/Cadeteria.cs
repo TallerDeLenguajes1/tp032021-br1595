@@ -18,8 +18,8 @@ namespace EntidadesSistema
         public Cadeteria(/*string _Nombre*/)
         {
             //this.nombre = _Nombre;
-            Cadetes = new List<Cadete>();
-            Pedidos = new List<Pedido>();
+            //Cadetes = new List<Cadete>();
+            //Pedidos = new List<Pedido>();
         }
 
     }
