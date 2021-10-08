@@ -8,12 +8,15 @@ namespace EntidadesSistema
 {
     public class DBTemporal
     {
-
         public Cadeteria Cadeteria { get; set; }
 
         public DBTemporal()
         {
-            this.Cadeteria = new Cadeteria();
+        }
+
+        public void SaveCadete(string _Nombre, int _Dni, string _Direccion, string _Telefono)
+        {
+
         }
     }
 }
