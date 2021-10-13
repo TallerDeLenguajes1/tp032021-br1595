@@ -10,7 +10,6 @@ namespace tp032021_br1595.Controllers
 {
     public class PedidoController : Controller
     {
-        static int numeroPedido = 0;
         private readonly ILogger<PedidoController> _logger;
         private readonly DBTemporal _dB;
 
@@ -24,24 +23,18 @@ namespace tp032021_br1595.Controllers
             return View();
         }
 
-        public IActionResult AgregarPedido(string _Observacion, string _Estado, string _DNI, string _Nombre, string _Direccion, string _Telefono)
+        public IActionResult AgregarPedido(string _Observacion, string _DNI, string _Nombre, string _Direccion, string _Telefono)
         {
-            Pedido nuevoPedido = new Pedido(numeroPedido, _Observacion, _Estado, _DNI, _Nombre, _Direccion, _Telefono);
-            int totalCadetes = _dB.Cadeteria.Cadetes.Count();
-             Random cualquiera = new Random();
-             int idCadete = cualquiera.Next(totalCadetes + 1);            
-             
-            Cadete cadeteElegido = _dB.Cadeteria.Cadetes.Find(x => x.Id == idCadete);
-            if(cadeteElegido != null)
-            {
-                cadeteElegido.ListadoPedidos.Add(nuevoPedido);
-            }
+            Estado estado = Estado.NoEntregado;
+            int numero = _dB.ReadPedidosAlmacenados().Count() + 1;
+            _dB.AddPedido(numero, _Observacion, estado, _DNI, _Nombre, _Direccion, _Telefono);
+
             return Redirect("Index");
         }
 
         public IActionResult ListaPedidos()
         {
-            return View(_dB.Cadeteria.Pedidos);
+            return View(_dB.ReadCadetesAlmacenados());
         }
     }
 }

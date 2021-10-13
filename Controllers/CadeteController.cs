@@ -19,26 +19,23 @@ namespace tp032021_br1595.Controllers
         }
         public IActionResult Index()
         {
-            return View(_dB.Cadeteria.Cadetes);
+            return View(_dB.ReadCadetesAlmacenados());
         }
 
         public IActionResult AltaCadete()
         {
             return View();
         }
-        public IActionResult AgregarCadete(string _Nombre, string _Direccion, string _Telefono)
+        public IActionResult AgregarCadete(int _IdCadete, int _Dni, string _Nombre, string _Direccion, string _Telefono)
         {
-            if (_Nombre != null || _Direccion != null || _Telefono != null)
-            {
-                Cadete nuevoCadete = new Cadete(id, _Nombre, _Direccion, _Telefono);
-                id++;
-                _dB.Cadeteria.Cadetes.Add(nuevoCadete);
-                return Redirect("Index");
-            }
-            else
-            {
-                return View();
-            }
+            _dB.SaveCadete(_Dni, _Nombre, _Direccion, _Telefono);
+            return Redirect("Index");
+        }
+
+        public IActionResult DeleteCadete(int _Id)
+        {
+            Cadete cadeteToDelete = _dB.ObtenerUnCadete(_Id);
+            return View(cadeteToDelete);
         }
     }
 }

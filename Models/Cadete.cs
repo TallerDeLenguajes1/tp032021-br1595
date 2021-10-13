@@ -34,9 +34,9 @@ namespace EntidadesSistema
             ListadoPedidos = new List<Pedido>();
         }
 
-        public Cadete(int NumeroCadete, int _Dni, string _Nombre, string _Direccion, string _Telefono)
+        public Cadete(int _IdCadete, int _Dni, string _Nombre, string _Direccion, string _Telefono)
         {
-            this.id = NumeroCadete;
+            this.id = _IdCadete;
             this.dni = _Dni;
             this.Nombre = _Nombre;
             this.Direccion = _Direccion;

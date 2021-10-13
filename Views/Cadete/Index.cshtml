@@ -14,17 +14,20 @@
     <table class="table table-striped">
         <tr>
             <th>ID</th>
+            <th>DNI</th>
             <th>Nombre</th>
             <th>Direccion</th>
             <th>Cantidad de pedidos</th>
         </tr>
-        @foreach (var item in Model)
+        @foreach (var elemento in Model)
         {
             <tr>
-                <td>@item.Id</td>
-                <td>@item.Nombre</td>
-                <td>@item.Direccion</td>
-                <td>@item.ListadoPedidos.Count</td>
+                <td>@elemento.Id</td>
+                <td>@elemento.Dni</td>
+                <td>@elemento.Nombre</td>
+                <td>@elemento.Direccion</td>
+                <td>@elemento.ListadoPedidos.Count</td>
+                <td><a button type="button" class="btn btn-secondary btn-sm" href="../Cadete/DeleteCadete?id=@elemento.Id">Eliminar</a></td>
             </tr>
         }
     </table>

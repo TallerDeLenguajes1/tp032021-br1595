@@ -18,6 +18,7 @@ namespace EntidadesSistema
         private Cliente destinatario;
         private Estado estado;
         private string nombreCadete;
+        private int codigoCadete;
 
 
 
@@ -26,6 +27,7 @@ namespace EntidadesSistema
         public Cliente Destinatario { get => destinatario; set => destinatario = value; }
         public Estado Estado { get => estado; set => estado = value; }
         public string NombreCadete { get => nombreCadete; set => nombreCadete = value; }
+        public int CodigoCadete { get => codigoCadete; set => codigoCadete = value; }
 
         public Pedido() { }
         public Pedido(int _Numero, string _Observacion, Estado _Estado, string _DNI, string _Nombre, string _Direccion, string _Telefono)
@@ -34,6 +36,8 @@ namespace EntidadesSistema
             Numero = _Numero;
             Observacion = _Observacion;
             Estado = _Estado;
+            NombreCadete = "No asignado";
+            CodigoCadete = 9999;
         }
 
         public Pedido(int _Numero, string _Observacion, Estado _Estado, Cliente _Cliente)
@@ -42,6 +46,8 @@ namespace EntidadesSistema
             Numero = _Numero;
             Observacion = _Observacion;
             Estado = _Estado;
+            NombreCadete = "No asignado";
+            CodigoCadete = 9999;
         }
 
     }
