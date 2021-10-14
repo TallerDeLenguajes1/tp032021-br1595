@@ -127,7 +127,11 @@ namespace EntidadesSistema
 
         public void AddPedido(int _Numero, string _Observacion, Estado _Estado, string _Dni, string _Nombre, string _Direccion, string _Telefono, int _CodigoCadete)
         {
+            List<Cadete> ListaCadetes = ReadCadetesAlmacenados();
+            Cadete cadeteSeleccionado = ListaCadetes.Find(x => x.Id == _CodigoCadete);
             Pedido pedido = new Pedido(_Numero, _Observacion, _Estado, _Dni, _Nombre, _Direccion, _Telefono, _CodigoCadete);
+            cadeteSeleccionado.AgregarPedido(pedido);
+            ModifyArchivoCadete(ListaCadetes);
             AddArchivoPedido(pedido);
         }
         public void AddArchivoPedido(Pedido _Pedido)
