@@ -8,17 +8,21 @@
 <div class="text-center">
     <form asp-controller = "Cadete" asp-action="AgregarCadete" method="post">
         <div class="mb-3">
-            <label for="name" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="_Nombre" name="_Nombre" required>
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" name="_Nombre" required>
         </div>
         <div class="mb-3">
-            <label for="address" class="form-label">Direccion</label>
+            <label for="dni" class="form-label">DNI</label>
+            <input type="number" class="form-control" id="dni" name="_Dni" required>
+        </div>
+        <div class="mb-3">
+            <label for="direccion" class="form-label">Direccion</label>
             <input type="text" class="form-control" id="_Direccion" name="_Direccion" required>
         </div>
         <div class="mb-3">
-            <label for="phoneNumber" class="form-label">Telefono</label>
-            <input type="text" class="form-control" id="_Telefono" name="_Telefono" required>
+            <label for="telefono" class="form-label">Telefono</label>
+            <input type="text" class="form-control" id="telefono" name="_Telefono" required>
         </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
+        <button type="submit" class="btn btn-primary">Enviar</button>
     </form>
 </div>

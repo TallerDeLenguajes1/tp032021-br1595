@@ -21,10 +21,10 @@ namespace EntidadesSistema
         public Cliente() { }
         public Cliente(string _DNI, string _Nombre, string _Direccion, string _Telefono)
         {
-            this.id = _DNI;
-            this.Nombre = _Nombre;
-            this.Direccion = _Direccion;
-            this.Telefono = _Telefono;
+            Id = _DNI;
+            Nombre = _Nombre;
+            Direccion = _Direccion;
+            Telefono = _Telefono;
         }
     }
 }

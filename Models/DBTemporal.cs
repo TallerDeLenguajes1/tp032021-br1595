@@ -11,8 +11,8 @@ namespace EntidadesSistema
     public class DBTemporal
     {
         const string pathCarpeta = @"C:\TP03";
-        const string pathCadetesTmp = @"C:\TP03\tmp\_dB.cadetes.tmp.txt";
-        const string pathPedidosTmp = @"C:\TP03\tmp\_dB.pedidos.tmp.txt";
+        const string pathCadetesTmp = @"C:\TP03\_dB.cadetes.tmp.txt";
+        const string pathPedidosTmp = @"C:\TP03\_dB.pedidos.tmp.txt";
         const string pathPedidos = @"C:\TP03\_dB.pedidos.txt";
         const string pathCadetes = @"C:\TP03\_dB.cadetes.txt";
 
@@ -77,6 +77,8 @@ namespace EntidadesSistema
             Cadete cadeteToDelete = CadetesAlmacenados.Find(identificacion => identificacion.Id == _Id);
             CadetesAlmacenados.Remove(cadeteToDelete);
 
+            ModifyArchivoCadete(CadetesAlmacenados);
+
         }
 
         public Cadete ObtenerUnCadete(int _IdReferencia)
@@ -110,24 +112,24 @@ namespace EntidadesSistema
             foreach(Cadete cadete in _ListaCadetes)
             {
                 string streamJson = JsonSerializer.Serialize(cadete);
-                using(StreamWriter streamWriter = File.AppendText(pathCadetesTmp))
+                using(StreamWriter archivo2 = File.AppendText(pathCadetesTmp))
                 {
-                    streamWriter.WriteLine(streamJson);
-                    streamWriter.Close();
-                    streamWriter.Dispose();
+                    archivo2.WriteLine(streamJson);
+                    archivo2.Close();
+                    archivo2.Dispose();
                 }
             }
             File.Delete(pathCadetes);
             File.Move(pathCadetesTmp, pathCadetes);
         }
+
         //----------------------------Pedido-------------------------------------------------------//
 
-        public void AddPedido(int _Numero, string _Observacion, Estado _Estado, string _Dni, string _Nombre, string _Direccion, string _Telefono)
+        public void AddPedido(int _Numero, string _Observacion, Estado _Estado, string _Dni, string _Nombre, string _Direccion, string _Telefono, int _CodigoCadete)
         {
-            Pedido pedido = new Pedido(_Numero, _Observacion, _Estado, _Dni, _Nombre, _Direccion, _Telefono);
+            Pedido pedido = new Pedido(_Numero, _Observacion, _Estado, _Dni, _Nombre, _Direccion, _Telefono, _CodigoCadete);
             AddArchivoPedido(pedido);
         }
-
         public void AddArchivoPedido(Pedido _Pedido)
         {
             string streamJson = JsonSerializer.Serialize(_Pedido);
@@ -148,6 +150,7 @@ namespace EntidadesSistema
                 AddArchivoPedido(_Pedido);
             }
         }
+
         public List<Pedido> ReadPedidosAlmacenados()
         {
             List<Pedido> listaPedidosAlmacenados = new List<Pedido>();

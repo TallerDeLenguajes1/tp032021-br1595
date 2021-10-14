@@ -20,21 +20,21 @@ namespace tp032021_br1595.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            return View(_dB.ReadCadetesAlmacenados());
         }
 
-        public IActionResult AgregarPedido(string _Observacion, string _DNI, string _Nombre, string _Direccion, string _Telefono)
+        public IActionResult AgregarPedido(string _Observacion, string _DNI, string _Nombre, string _Direccion, string _Telefono, int _CodigoCadete)
         {
-            Estado estado = Estado.NoEntregado;
+            Estado estado = Estado.EnCurso;
             int numero = _dB.ReadPedidosAlmacenados().Count() + 1;
-            _dB.AddPedido(numero, _Observacion, estado, _DNI, _Nombre, _Direccion, _Telefono);
+            _dB.AddPedido(numero, _Observacion, estado, _DNI, _Nombre, _Direccion, _Telefono, _CodigoCadete);
 
             return Redirect("Index");
         }
 
         public IActionResult ListaPedidos()
         {
-            return View(_dB.ReadCadetesAlmacenados());
+            return View(_dB.ReadPedidosAlmacenados());
         }
     }
 }

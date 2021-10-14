@@ -5,15 +5,27 @@
 @model List<EntidadesSistema.Pedido>
 <div class="text-center">
     <h1 class="display-4">Listado de Pedidos</h1>
-
-    @foreach (var item in Model)
+    <table class="table table-striped" style="text-align:center">
+    @if (Model.Count() != 0)
     {
-        <h3>Nro = @item.Numero</h3>
-        <h3>Cliente = @item.Destinatario.Nombre</h3>
-        <h3>Obs = @item.Observacion</h3>
-        <h3>Direccion = @item.Destinatario.Direccion</h3>
-
-        <brbr/>
+        <tr>
+            <th>Numero</th> 
+            <th>Direccion</th>
+            <th>Obersvacion</th>
+            <th>Destino</th>
+            <th>Estado</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Numero</td>
+                <td>@item.Destinatario.Nombre</td>
+                <td>@item.Observacion</td>
+                <td>@item.Destinatario.Direccion</td>
+                <td>@item.Estado</td>
+            </tr>
+        }
     }
+    </table>
 
 </div>

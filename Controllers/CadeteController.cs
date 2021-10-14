@@ -37,5 +37,11 @@ namespace tp032021_br1595.Controllers
             Cadete cadeteToDelete = _dB.ObtenerUnCadete(_Id);
             return View(cadeteToDelete);
         }
+
+        public IActionResult DeleteForGoodCadete(int _Id)
+        {
+            _dB.DeleteCadete(_Id);
+            return RedirectToAction("Index");
+        }
     }
 }
