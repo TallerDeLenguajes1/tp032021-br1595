@@ -9,7 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EntidadesSistema;
-using NLog;
+using tp032021_br1595.Models;
+//using NLog;
 
 namespace tp032021_br1595
 {
@@ -28,8 +29,10 @@ namespace tp032021_br1595
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddSingleton(Nlog.LogManager.GetCurrentClassLogger());
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            RepositorioCadete RepoCadetes = new RepositorioCadete(Configuration.GetConnectionString("Default"));
+            services.AddSingleton(RepoCadetes);
+            var connectionString = Configuration.GetConnectionString("Default");
+           // services.AddControllersWithViews();addRazorRuntimeCompilation();
             services.AddSingleton(DB);//importante en esta altura del cursado
         }
 

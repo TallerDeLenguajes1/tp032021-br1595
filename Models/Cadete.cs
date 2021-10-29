@@ -19,6 +19,7 @@ namespace EntidadesSistema
         private int dni;
         private float totalPagos;
         private int cantidadEntregasRealizadas;
+        private int cadeteriaId;
 
         public int Id { get => id; set => id = value; }
         public string Nombre { get => nombre; set => nombre = value; }
@@ -28,6 +29,7 @@ namespace EntidadesSistema
         public int Dni { get => dni; set => dni = value; }
         public float TotalPagos { get => totalPagos; set => totalPagos = value; }
         public int CantidadEntregasRealizadas { get => cantidadEntregasRealizadas; set => cantidadEntregasRealizadas = value; }
+        public int CadeteriaId { get => cadeteriaId; set => cadeteriaId = value; }
 
         public Cadete() 
         {
