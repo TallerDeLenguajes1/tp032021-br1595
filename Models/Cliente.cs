@@ -5,26 +5,15 @@ using System.Threading.Tasks;
 
 namespace EntidadesSistema
 {
-    public class Cliente
+    public class Cliente : Usuario
     {
-
-        private string id;
-        private string nombre;
-        private string direccion;
-        private string telefono;
-
-        public string Id { get => id; set => id = value; }
-        public string Nombre { get => nombre; set => nombre = value; }
-        public string Direccion { get => direccion; set => direccion = value; }
-        public string Telefono { get => telefono; set => telefono = value; }
-
         public Cliente() { }
-        public Cliente(string _DNI, string _Nombre, string _Direccion, string _Telefono)
+        public Cliente(int _DNI, string _Nombre, string _Direccion, string _Telefono)
         {
-            Id = _DNI;
-            Nombre = _Nombre;
-            Direccion = _Direccion;
-            Telefono = _Telefono;
+            this.Id = _DNI;
+            this.Nombre = _Nombre;
+            this.Direccion = _Direccion;
+            this.Telefono = _Telefono;
         }
     }
 }

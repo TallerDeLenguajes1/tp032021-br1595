@@ -9,7 +9,7 @@ using System.IO;
 namespace EntidadesSistema
 {
     public class DBTemporal
-    {
+    {/*
         const string pathCarpeta = @"C:\TP03";
         const string pathCadetesTmp = @"C:\TP03\_dB.cadetes.tmp.txt";
         const string pathPedidosTmp = @"C:\TP03\_dB.pedidos.tmp.txt";
@@ -18,10 +18,10 @@ namespace EntidadesSistema
 
         public DBTemporal(){}
         //----------------------------Cadete-------------------------------------------------------//
-        public void SaveCadete(int _Dni, string _Nombre, string _Direccion, string _Telefono)
+        public void SaveCadete(string _Nombre, string _Direccion, string _Telefono)
         {
             int idNuevo = ReadCadetesAlmacenados().Count() + 1;
-            Cadete nuevoCadete = new Cadete(idNuevo, _Dni, _Nombre, _Direccion, _Telefono);
+            Cadete nuevoCadete = new Cadete(idNuevo, _Nombre, _Direccion, _Telefono);
             SaveCadeteArchivo(nuevoCadete);
         }
 
@@ -100,8 +100,6 @@ namespace EntidadesSistema
             catch(FileNotFoundException)
             {
                 cadeteBuscador.Direccion = "Error";
-                cadeteBuscador.CantidadEntregasRealizadas = 0;
-                cadeteBuscador.Dni = 99999;
                 return cadeteBuscador;
             }
         }
@@ -124,12 +122,12 @@ namespace EntidadesSistema
         }
 
         //----------------------------Pedido-------------------------------------------------------//
-
-        public void AddPedido(int _Numero, string _Observacion, Estado _Estado, string _Dni, string _Nombre, string _Direccion, string _Telefono, int _CodigoCadete)
+        
+        public void AddPedido(int _Numero, string _Observacion, string _Estado, int _Dni, string _Nombre, string _Direccion, string _Telefono, int _CodigoCadete)
         {
             List<Cadete> ListaCadetes = ReadCadetesAlmacenados();
             Cadete cadeteSeleccionado = ListaCadetes.Find(x => x.Id == _CodigoCadete);
-            Pedido pedido = new Pedido(_Numero, _Observacion, _Estado, _Dni, _Nombre, _Direccion, _Telefono, _CodigoCadete);
+            Pedido pedido = new Pedido(_Numero, _Observacion, _Estado, _Dni, _Nombre, _Direccion, _Telefono);
             cadeteSeleccionado.AgregarPedido(pedido);
             ModifyArchivoCadete(ListaCadetes);
             AddArchivoPedido(pedido);
@@ -198,6 +196,7 @@ namespace EntidadesSistema
             }
             File.Delete(pathPedidos);
             File.Move(pathPedidosTmp, pathPedidos);
-        }
+        }*/
     }
+        
 }

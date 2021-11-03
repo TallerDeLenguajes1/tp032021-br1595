@@ -20,7 +20,7 @@ namespace tp032021_br1595.Controllers
         }
         public IActionResult Index()
         {
-            return View(_dB.ReadCadetesAlmacenados());
+            return View(/*_dB.ReadCadetesAlmacenados()*/);
         }
     }
 }

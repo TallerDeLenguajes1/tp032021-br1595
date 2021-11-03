@@ -1,86 +1,88 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EntidadesSistema;
 using System.Data.SQLite;
+using EntidadesSistema;
 
 namespace tp032021_br1595.Models
 {
-    public class RepositorioCadete
-    {        
+    public class RepositorioPedido
+    {
         private readonly string connectionString;
 
-        public RepositorioCadete(string _ConnectionString)
+        public RepositorioPedido(string _ConnectionString)
         {
             this.connectionString = _ConnectionString;
         }
-
-        public List<Cadete> getAll()
+        public List<Pedido> getAll()
         {
-            List<Cadete> ListadoCadetes = new List<Cadete>();
+            List<Pedido> ListadoPedidos = new List<Pedido>();
             using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
             {
                 conexion.Open();
-                string SQLQuery = "SELECT * FROM Cadetes;";
+                string SQLQuery = "SELECT * FROM Pedidos;";
                 SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion);
                 SQLiteDataReader DataReader = command.ExecuteReader();
-                while(DataReader.Read())
+                while (DataReader.Read())
                 {
-                    Cadete cadete = new Cadete()
+                    Pedido pedido = new Pedido()
                     {
-                        Id = (int) DataReader["cadeteID"],
-                        Nombre = DataReader["cadeteNombre"].ToString()
+                        Numero = (int) DataReader["pedidoID"],
+                        Observacion = DataReader["pedidoObservacion"].ToString(),
+                        Estado = DataReader["pedidoEstado"].ToString(),   
+                        ClienteID = (int) DataReader["clienteID"],
+                        CodigoCadete = (int) DataReader["cadeteID"]
                     };
-                    ListadoCadetes.Add(cadete);
+                    ListadoPedidos.Add(pedido);
                 }
                 conexion.Close();
             }
-            return ListadoCadetes;
+            return ListadoPedidos;
+        }
+        public void addPedido(Pedido _Pedido)
+        {
+            using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
+            {
+                conexion.Open();
+                string SQLQuery = "INSERT INTO Pedidos SET pedidoObservacion ='" + _Pedido.Observacion + "', clienteID =" + _Pedido.ClienteID + ", cadeteID =" + _Pedido.CodigoCadete + ", pedidoEstado = 'Recibido';";
+                SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion);
+                conexion.Close();
+            }
+        }
+        public void addPedidoCadete(Pedido _Pedido, Cadete _Cadete)
+        {
+            using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
+            {
+                conexion.Open();
+                string SQLQuery = "UPDATE Pedidos SET cadeteId=" + _Cadete.Id + ", estadoPedido= 'En camino' WHERE pedidoID =" + _Pedido.Numero + ";";
+                SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion);
+                conexion.Close();
+            }
         }
 
-        public void addCadete(Cadete _Cadete)
+        public void cancelPedido(Pedido _Pedido)
         {
+            Pedido PedidoSelecionado = new Pedido();
             using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
             {
                 conexion.Open();
-                string SQLQuery = "INSERT INTO Cadetes SET  cadeteNombre ='" + _Cadete.Nombre + "', cadeteTelefono ='" + _Cadete.Telefono + "', cadeteDireccion = '" + _Cadete.Direccion + "', cadeteteriaID =" + _Cadete.CadeteriaId  + ";";
+                string SQLQuery = "UPDATE Pedidos SET pedidoEstado= 'Cancelado' WHERE pedidoID =" + _Pedido.Numero + ";";
                 SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion);
                 conexion.Close();
             }
         }
-        public void modifyCadete(Cadete _Cadete)
+        public void finishPedido(Pedido _Pedido)
         {
-            Cadete CadeteSelecionado = new Cadete();
+            Pedido PedidoSelecionado = new Pedido();
             using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
             {
                 conexion.Open();
-                string SQLQuery = "UPDATE Cadetes SET cadeteNombre ='" + _Cadete.Nombre + "', cadeteTelefono = '" + _Cadete.Direccion + "' ,cadeteriaID=" + _Cadete.CadeteriaId + "WHERE cadeteID = " + _Cadete.Id + ";";
+                string SQLQuery = "UPDATE Pedidos SET pedidoEstado= 'Completado' WHERE pedidoID =" + _Pedido.Numero + ";";
                 SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion);
                 conexion.Close();
             }
-        }   
-        public void readmitCadete(Cadete _Cadete)
-        {
-            Cadete CadeteSelecionado = new Cadete();
-            using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
-            {
-                conexion.Open();
-                string SQLQuery = "UPDATE Cadetes SET cadeteEstado = 1 WHERE cadeteID =" + _Cadete.Id + ";";
-                SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion);
-                conexion.Close();
-            }
-        }
-        public void deleteCadete(Cadete _Cadete)
-        {
-            Cadete CadeteSelecionado = new Cadete();
-            using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
-            {
-                conexion.Open();
-                string SQLQuery = "UPDATE Cadetes SET cadeteEstado = 0 WHERE cadeteID =" + _Cadete.Id + ";";
-                SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion);
-                conexion.Close();
-            }  
         }
     }
 }
+

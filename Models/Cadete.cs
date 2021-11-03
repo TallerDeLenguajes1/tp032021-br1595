@@ -8,27 +8,14 @@ using EntidadesSistema;
 namespace EntidadesSistema
 
 {
-    public class Cadete
+    public class Cadete : Usuario
     {
-
-        private int id;
-        private string nombre;
-        private string direccion;
-        private string telefono;
         private List<Pedido> listadoPedidos;
-        private int dni;
         private float totalPagos;
-        private int cantidadEntregasRealizadas;
         private int cadeteriaId;
 
-        public int Id { get => id; set => id = value; }
-        public string Nombre { get => nombre; set => nombre = value; }
-        public string Direccion { get => direccion; set => direccion = value; }
-        public string Telefono { get => telefono; set => telefono = value; }
         public List<Pedido> ListadoPedidos { get => listadoPedidos; set => listadoPedidos = value; }
-        public int Dni { get => dni; set => dni = value; }
         public float TotalPagos { get => totalPagos; set => totalPagos = value; }
-        public int CantidadEntregasRealizadas { get => cantidadEntregasRealizadas; set => cantidadEntregasRealizadas = value; }
         public int CadeteriaId { get => cadeteriaId; set => cadeteriaId = value; }
 
         public Cadete() 
@@ -36,15 +23,13 @@ namespace EntidadesSistema
             ListadoPedidos = new List<Pedido>();
         }
 
-        public Cadete(int _IdCadete, int _Dni, string _Nombre, string _Direccion, string _Telefono)
+        public Cadete(int _IdCadete, string _Nombre, string _Direccion, string _Telefono, string _Vehiculo)
         {
-            this.id = _IdCadete;
-            this.dni = _Dni;
+            this.Id = _IdCadete;
             this.Nombre = _Nombre;
             this.Direccion = _Direccion;
             this.Telefono = _Telefono;
             this.ListadoPedidos = new List<Pedido>();
-            this.CantidadEntregasRealizadas = 0;
             this.TotalPagos = 0;
         }
 

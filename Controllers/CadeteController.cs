@@ -19,7 +19,8 @@ namespace tp032021_br1595.Controllers
         }
         public IActionResult Index()
         {
-            return View(_dB.ReadCadetesAlmacenados());
+            //return View(_dB.ReadCadetesAlmacenados());
+            return View();
         }
 
         public IActionResult AltaCadete()
@@ -28,19 +29,19 @@ namespace tp032021_br1595.Controllers
         }
         public IActionResult AgregarCadete(int _IdCadete, int _Dni, string _Nombre, string _Direccion, string _Telefono)
         {
-            _dB.SaveCadete(_Dni, _Nombre, _Direccion, _Telefono);
+            //_dB.SaveCadete(_Dni, _Nombre, _Direccion, _Telefono);
             return Redirect("Index");
         }
 
         public IActionResult DeleteCadete(int _Id)
         {
-            Cadete cadeteToDelete = _dB.ObtenerUnCadete(_Id);
-            return View(cadeteToDelete);
+            //Cadete cadeteToDelete = _dB.ObtenerUnCadete(_Id);
+            return View();
         }
 
         public IActionResult DeleteForGoodCadete(int _Id)
         {
-            _dB.DeleteCadete(_Id);
+            //_dB.DeleteCadete(_Id);
             return RedirectToAction("Index");
         }
     }

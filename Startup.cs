@@ -29,13 +29,15 @@ namespace tp032021_br1595
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHealthChecks();
+
+            services.AddAuthorization();
             RepositorioCadete RepoCadetes = new RepositorioCadete(Configuration.GetConnectionString("Default"));
             services.AddSingleton(RepoCadetes);
             var connectionString = Configuration.GetConnectionString("Default");
-           // services.AddControllersWithViews();addRazorRuntimeCompilation();
+            services.AddControllersWithViews();//addRazorRuntimeCompilation();
             services.AddSingleton(DB);//importante en esta altura del cursado
         }
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
