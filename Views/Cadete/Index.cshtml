@@ -12,6 +12,8 @@
         <tr>
             <th>ID</th>
             <th>Nombre</th>
+            <th>Telefono</th>
+            <th>Nombre</th>
             <th>Direccion</th>
             <th>Cantidad de pedidos</th>
         </tr>
@@ -20,8 +22,8 @@
             <tr>
                 <td>@elemento.Id</td>
                 <td>@elemento.Nombre</td>
+                <td>@elemento.Telefono</td>
                 <td>@elemento.Direccion</td>
-                <td>@elemento.ListadoPedidos.Count</td>
                 <td>
                     <a button type="button" class="btn btn-secondary btn-sm" href="../Cadete/DeleteCadete?id=@elemento.Id">Eliminar</a>
                 </td>

@@ -11,12 +11,12 @@ namespace EntidadesSistema
     public class Cadete : Usuario
     {
         private List<Pedido> listadoPedidos;
-        private float totalPagos;
-        private int cadeteriaId;
+        private decimal totalPagos;
+        private string cadeteriaId;
 
         public List<Pedido> ListadoPedidos { get => listadoPedidos; set => listadoPedidos = value; }
-        public float TotalPagos { get => totalPagos; set => totalPagos = value; }
-        public int CadeteriaId { get => cadeteriaId; set => cadeteriaId = value; }
+        public decimal TotalPagos { get => totalPagos; set => totalPagos = value; }
+        public string CadeteriaId { get => cadeteriaId; set => cadeteriaId = value; }
 
         public Cadete() 
         {

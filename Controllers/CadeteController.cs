@@ -29,6 +29,13 @@ namespace tp032021_br1595.Controllers
         {
             return View();
         }
+        public ActionResult AgregarCadete()
+        {
+            return View(new Cadete());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult AgregarCadete(Cadete _Cadete)
         {
             //_dB.SaveCadete(_Dni, _Nombre, _Direccion, _Telefono);
