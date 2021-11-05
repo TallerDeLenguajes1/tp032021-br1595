@@ -39,6 +39,24 @@ namespace tp032021_br1595.Models
             return ListadoCadetes;
         }
 
+        public Cadete getOne(int _CadeteCodigo)
+        {
+            Cadete cadeteElegido = new Cadete();
+            using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
+            {
+                conexion.Open();
+                string SQLQuery = "SELECT * FROM Cadetes WHERE cadeteID= " + _CadeteCodigo + ";";
+                SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion);
+                SQLiteDataReader DataReader = command.ExecuteReader();
+                Cadete cadete = new Cadete()
+                {
+                    Id = (int)DataReader["cadeteID"],
+                    Nombre = DataReader["cadeteNombre"].ToString()
+                };                
+                conexion.Close();
+            }
+            return cadeteElegido;
+        }
         public void addCadete(Cadete _Cadete)
         {
             using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
@@ -71,7 +89,7 @@ namespace tp032021_br1595.Models
                 conexion.Close();
             }
         }
-        public void deleteCadete(Cadete _Cadete)
+        public void deleteCadete(int _CadeteCodigo)
         {
             Cadete CadeteSelecionado = new Cadete();
             using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
