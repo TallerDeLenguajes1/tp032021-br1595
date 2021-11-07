@@ -34,6 +34,8 @@ namespace tp032021_br1595
             services.AddAuthorization();
             RepositorioCadete RepoCadetes = new RepositorioCadete(Configuration.GetConnectionString("Default"));
             services.AddSingleton(RepoCadetes);
+            RepositorioCadeteria RepoCadeterias = new RepositorioCadeteria(Configuration.GetConnectionString("Default"));
+            services.AddSingleton(RepoCadeterias);
             var connectionString = Configuration.GetConnectionString("Default");
             services.AddControllersWithViews();//addRazorRuntimeCompilation();
             services.AddSingleton(DB);//importante en esta altura del cursado

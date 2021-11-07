@@ -1,6 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model List<EntidadesSistema.Cadeteria>
 @{
     ViewData["Title"] = "Pagina de cadetes";
 }
@@ -9,19 +10,23 @@
     <form asp-controller = "Cadete" asp-action="AgregarCadete" method="post">
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombre" name="_Nombre" required>
-        </div>
-        <div class="mb-3">
-            <label for="dni" class="form-label">DNI</label>
-            <input type="number" class="form-control" id="dni" name="_Dni" required>
+            <input type="text" class="form-control" id="nombre" name="Nombre" required>
         </div>
         <div class="mb-3">
             <label for="direccion" class="form-label">Direccion</label>
-            <input type="text" class="form-control" id="_Direccion" name="_Direccion" required>
+            <input type="text" class="form-control" id="_Direccion" name="Direccion" required>
         </div>
         <div class="mb-3">
-            <label for="telefono" class="form-label">Telefono</label>
-            <input type="text" class="form-control" id="telefono" name="_Telefono" required>
+            <label for="Telefono" class="form-label">Telefono</label>
+            <input type="text" class="form-control" id="Telefono" name="Telefono" required>
+        </div>
+        <div class="mb-3">
+            <select  for="CadeteriaId" class="custom-select" style="text-align:center">
+                @foreach (var elemento in Model)
+                {
+                    <option value="@elemento.CadeteriaID" name="CadeteriaId">@elemento.CadeteriaNombre</option>
+                }
+            </select>
         </div>
         <button type="submit" class="btn btn-primary">Enviar</button>
     </form>

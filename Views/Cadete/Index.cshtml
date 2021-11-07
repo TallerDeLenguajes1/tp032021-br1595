@@ -13,21 +13,26 @@
             <th>ID</th>
             <th>Nombre</th>
             <th>Telefono</th>
-            <th>Nombre</th>
             <th>Direccion</th>
-            <th>Cantidad de pedidos</th>
+            <th>Cantidad de pedidos realizados</th>
+            <th>Cantidad de pedidos activos</th>
         </tr>
         @foreach (var elemento in Model)
         {
-            <tr>
-                <td>@elemento.Id</td>
-                <td>@elemento.Nombre</td>
-                <td>@elemento.Telefono</td>
-                <td>@elemento.Direccion</td>
-                <td>
-                    <a button type="button" class="btn btn-secondary btn-sm" href="../Cadete/DeleteCadete?id=@elemento.Id">Eliminar</a>
-                </td>
-            </tr>
+            if(elemento.Activo != 0)
+            {
+                <tr>
+                    <td>@elemento.Id</td>
+                    <td>@elemento.Nombre</td>
+                    <td>@elemento.Telefono</td>
+                    <td>@elemento.Direccion</td>
+                    <td>@elemento.PedidosRealizados</td>
+                    <td>@elemento.PedidosActivos</td>
+                    <td>
+                        <a button type="button" class="btn btn-secondary btn-sm" href="../Cadete/DeleteCadete?_Id=@elemento.Id">Eliminar</a>
+                    </td>
+                </tr>                
+            }
         }
     </table>
 </div>

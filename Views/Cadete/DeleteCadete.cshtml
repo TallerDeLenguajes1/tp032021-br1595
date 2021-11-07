@@ -16,17 +16,18 @@
             <th>ID</th>
             <th>Nombre</th>
             <th>Direccion</th>
-            <th>Cantidad de pedidos</th>
-            <th></th>
+            <th>Cantidad de pedidos realizados</th>
+            <th>Cantidad de pedidos activos</th>
         </tr>
 
         <tr>
             <td>@Model.Id</td>
             <td>@Model.Nombre</td>
             <td>@Model.Direccion</td>
-            <td>@Model.ListadoPedidos.Count</td>
+            <td>@Model.PedidosRealizados</td>
+            <td>@Model.PedidosActivos</td>
             <td>
-                <a button type="button" class="btn btn-secondary btn-sm" href="DeleteForGoodCadete?id=@Model.Id" >Eliminar</a>
+                <a button type="button" class="btn btn-secondary btn-sm" href="DeleteForGoodCadete?_Id=@Model.Id" >Eliminar</a>
                 <a button type="button" class="btn btn-secondary btn-sm" asp-controller="Cadete" asp-action="Index" >Cancelar</a>
             </td>
         </tr>

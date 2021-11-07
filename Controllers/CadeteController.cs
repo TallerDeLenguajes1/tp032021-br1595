@@ -11,13 +11,15 @@ namespace tp032021_br1595.Controllers
 {
     public class CadeteController : Controller
     {
-        private readonly ILogger<CadeteController> _logger;
         //private readonly DBTemporal _dB;
+        private readonly ILogger<CadeteController> _logger;
         private readonly RepositorioCadete _dB;
-        public CadeteController(ILogger<CadeteController> logger, /*DBTemporal DB*/ RepositorioCadete DB)
+        private readonly RepositorioCadeteria _dBC;
+        public CadeteController(ILogger<CadeteController> logger,  RepositorioCadete DB, RepositorioCadeteria DBC /*DBTemporal DB*/)
         {
             _logger = logger;
             _dB = DB;
+            _dBC = DBC;
         }
         public IActionResult Index()
         {
@@ -27,7 +29,7 @@ namespace tp032021_br1595.Controllers
 
         public IActionResult AltaCadete()
         {
-            return View();
+            return View(_dBC.getAll());
         }
         public ActionResult AgregarCadete()
         {

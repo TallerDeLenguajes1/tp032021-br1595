@@ -7,42 +7,36 @@ using System.Data.SQLite;
 
 namespace tp032021_br1595.Models
 {
-    public class RepositorioCadete
+    public class RepositorioCadeteria
     {        
         private readonly string connectionString;
 
-        public RepositorioCadete(string _ConnectionString)
+        public RepositorioCadeteria(string _ConnectionString)
         {
             this.connectionString = _ConnectionString;
         }
 
-        public List<Cadete> getAll()
+        public List<Cadeteria> getAll()
         {
-            List<Cadete> ListadoCadetes = new List<Cadete>();
+            List<Cadeteria> ListadoCadeterias = new List<Cadeteria>();
             using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
             {
                 conexion.Open();
-                string SQLQuery = "SELECT * FROM Cadetes;";
+                string SQLQuery = "SELECT * FROM Cadeterias;";
                 SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion);
                 SQLiteDataReader DataReader = command.ExecuteReader();
                 while(DataReader.Read() )
                 {
-                    Cadete cadete = new Cadete()
+                    Cadeteria cadeteria = new Cadeteria()
                     {
-                        Id = Convert.ToInt32(DataReader["cadeteID"]) ,
-                        Nombre = DataReader["cadeteNombre"].ToString(),
-                        Telefono = DataReader["cadeteTelefono"].ToString(),
-                        Direccion = DataReader["cadeteDireccion"].ToString(),
-                        CadeteriaId = DataReader["cadeteriaID"].ToString(),
-                        TotalPagos = Convert.ToDecimal(DataReader["cadeteTotalPagos"]),
-                        Activo = Convert.ToInt32(DataReader["cadeteActivo"])
+                        CadeteriaID = DataReader["cadeteriaID"].ToString(),
+                        CadeteriaNombre = DataReader["cadeteriaNombre"].ToString()
                     };
-                    ListadoCadetes.Add(cadete);
+                    ListadoCadeterias.Add(cadeteria);
                 }
-                DataReader.Close();
                 conexion.Close();
             }
-            return ListadoCadetes;
+            return ListadoCadeterias;
         }
 
         public Cadete getOne(int _CadeteCodigo)
@@ -51,27 +45,37 @@ namespace tp032021_br1595.Models
             using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
             {
                 conexion.Open();
-                string SQLQuery = "SELECT * FROM Cadetes WHERE cadeteID = " + _CadeteCodigo + ";";
+                string SQLQuery = "SELECT * FROM Cadetes WHERE cadeteID= " + _CadeteCodigo + ";";
                 SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion);
                 SQLiteDataReader DataReader = command.ExecuteReader();
-                if (DataReader.Read())
+                Cadete cadete = new Cadete()
                 {
-                    cadeteElegido.Id = Convert.ToInt32(DataReader["cadeteID"]);
-                    cadeteElegido.Nombre = DataReader["cadeteNombre"].ToString();
-                    cadeteElegido.Telefono = DataReader["cadeteTelefono"].ToString();
-                    cadeteElegido.Direccion = DataReader["cadeteDireccion"].ToString();
-                    cadeteElegido.CadeteriaId = DataReader["cadeteriaID"].ToString();
-                    cadeteElegido.TotalPagos = Convert.ToDecimal(DataReader["cadeteTotalPagos"]);
-                    cadeteElegido.PedidosRealizados = Convert.ToInt32(DataReader["cadetePedidosRealizados"]);
-                    cadeteElegido.PedidosActivos = Convert.ToInt32(DataReader["cadetePedidosActivos"]);
-                }
-                DataReader.Close();
+                    Id = (int)DataReader["cadeteID"],
+                    Nombre = DataReader["cadeteNombre"].ToString()
+                };                
                 conexion.Close();
             }
             return cadeteElegido;
         }
         public void addCadete(Cadete _Cadete)
-        {
+        {/*
+            string instruccion = @"INSERT INTO 
+                                       Cadetes (cadeteNombre, cadeteTelefono, cadeteDireccion, cadeteActivo)
+                                       VALUES (@nombre, @telefono, @direccion, 1)";
+
+            using (var conexion = new SQLiteConnection(connectionString))
+            {
+                using (SQLiteCommand command = new SQLiteCommand(instruccion, conexion))
+                {
+                    command.Parameters.AddWithValue("@nombre", nuevo.Nombre);
+                    command.Parameters.AddWithValue("@telefono", nuevo.Telefono);
+                    command.Parameters.AddWithValue("@direccion", nuevo.Direccion);
+
+                    conexion.Open();
+                    command.ExecuteNonQuery();
+                    conexion.Close();
+                }
+            }*/
             string SQLQuery = @"INSERT INTO Cadetes (cadeteNombre, cadeteTelefono, cadeteDireccion, cadeteActivo) VALUES (@nombreCadete, @nombreTelefono, @nombreDireccion, @nombreCadeteriaID)";
 
             using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
@@ -103,29 +107,24 @@ namespace tp032021_br1595.Models
         }   
         public void readmitCadete(Cadete _Cadete)
         {
+            Cadete CadeteSelecionado = new Cadete();
             using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
             {
-                string SQLQuery = "UPDATE Cadetes SET cadeteActivo = 1 WHERE cadeteID =" + _Cadete.Id + ";";
                 conexion.Open();
-                using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
-                {
-                    command.ExecuteNonQuery();
-                    conexion.Close();
-                }
+                string SQLQuery = "UPDATE Cadetes SET cadeteEstado = 1 WHERE cadeteID =" + _Cadete.Id + ";";
+                SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion);
+                conexion.Close();
             }
         }
         public void deleteCadete(int _CadeteCodigo)
         {
+            Cadete CadeteSelecionado = new Cadete();
             using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
             {
-                string SQLQuery = @"UPDATE Cadetes SET cadeteActivo = 0 WHERE cadeteID = @id;";
-                using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
-                {
-                    command.Parameters.AddWithValue("@id", _CadeteCodigo);
-                    conexion.Open();
-                    command.ExecuteNonQuery();
-                    conexion.Close();
-                }
+                conexion.Open();
+                string SQLQuery = "UPDATE Cadetes SET cadeteEstado = 0 WHERE cadeteID =" + _CadeteCodigo + ";";
+                SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion);
+                conexion.Close();
             }  
         }
     }
