@@ -70,6 +70,13 @@ namespace tp032021_br1595.Models
             }
             return cadeteElegido;
         }
+        public CadetePedidosViewModel getOneCadeteria(int _CadeteCodigo, RepositorioCadeteria _DBC)
+        {
+            CadetePedidosViewModel cadeteElegido = new CadetePedidosViewModel();
+            cadeteElegido.Cadete = getOne(_CadeteCodigo);
+            cadeteElegido.ListaCadeterias = _DBC.getAll();
+            return cadeteElegido;
+        }
         public void addCadete(Cadete _Cadete)
         {
             string SQLQuery = @"INSERT INTO Cadetes (cadeteNombre, cadeteTelefono, cadeteDireccion, cadeteActivo) VALUES (@nombreCadete, @nombreTelefono, @nombreDireccion, @nombreCadeteriaID)";
@@ -90,15 +97,20 @@ namespace tp032021_br1595.Models
         }
         public void modifyCadete(Cadete _Cadete)
         {
-            Cadete CadeteSelecionado = new Cadete();
+            string SQLQuery = @"UPDATE Cadetes SET (cadeteNombre, cadeteTelefono, cadeteDireccion, cadeteActivo) VALUES (@nombreCadete, @nombreTelefono, @nombreDireccion, @nombreCadeteriaID)";
+
             using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
-            {/*
-                conexion.Open();
-                string SQLQuery = @"UPDATE Cadetes SET cadeteNombre = @nombreCadete , cadeteTelefono = '" + _Cadete.Direccion + "' ,cadeteriaID=" + _Cadete.CadeteriaId + "WHERE cadeteID = " + _Cadete.Id + ";";
-                SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion);
-                command.Parameters.Add("@nombreCadete",  _Cadete.Nombre);
-                command.AddParametersWithValue.<addCadete>;  
-                conexion.Close();*/
+            {
+                using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
+                {
+                    command.Parameters.AddWithValue("@nombreCadete", _Cadete.Nombre);
+                    command.Parameters.AddWithValue("@nombreTelefono", _Cadete.Telefono);
+                    command.Parameters.AddWithValue("@nombreDireccion", _Cadete.Direccion);
+                    command.Parameters.AddWithValue("@nombreCadeteriaID", _Cadete.CadeteriaId);
+                    conexion.Open();
+                    command.ExecuteNonQuery();
+                    conexion.Close();
+                }
             }
         }   
         public void readmitCadete(Cadete _Cadete)
@@ -106,9 +118,9 @@ namespace tp032021_br1595.Models
             using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
             {
                 string SQLQuery = "UPDATE Cadetes SET cadeteActivo = 1 WHERE cadeteID =" + _Cadete.Id + ";";
-                conexion.Open();
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
                 {
+                    conexion.Open();
                     command.ExecuteNonQuery();
                     conexion.Close();
                 }

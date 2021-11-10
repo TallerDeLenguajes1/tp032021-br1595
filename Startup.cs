@@ -39,6 +39,12 @@ namespace tp032021_br1595
             var connectionString = Configuration.GetConnectionString("Default");
             services.AddControllersWithViews();//addRazorRuntimeCompilation();
             services.AddSingleton(DB);//importante en esta altura del cursado
+            services.AddDistributedMemoryCache();
+            services.AddSession(options => 
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(1);//You can set Time   
+            });
+            services.AddMvc();
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

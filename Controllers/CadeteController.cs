@@ -55,5 +55,16 @@ namespace tp032021_br1595.Controllers
             _dB.deleteCadete(_Id);
             return RedirectToAction("Index");
         }
+        
+        public IActionResult ModifyCadete(int _Id)
+        {
+            return View(_dB.getOneCadeteria(_Id, _dBC));
+        }
+
+        public IActionResult ModifyForGoodCadete(Cadete _Cadete)
+        {
+            _dB.modifyCadete(_Cadete);
+            return RedirectToAction("Index");
+        }
     }
 }

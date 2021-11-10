@@ -14,8 +14,10 @@
             <th>Nombre</th>
             <th>Telefono</th>
             <th>Direccion</th>
+            <th>CadeteriaID</th>
             <th>Cantidad de pedidos realizados</th>
             <th>Cantidad de pedidos activos</th>
+            <th>Acciones</th>
         </tr>
         @foreach (var elemento in Model)
         {
@@ -26,9 +28,11 @@
                     <td>@elemento.Nombre</td>
                     <td>@elemento.Telefono</td>
                     <td>@elemento.Direccion</td>
+                    <td>@elemento.CadeteriaId</td>
                     <td>@elemento.PedidosRealizados</td>
                     <td>@elemento.PedidosActivos</td>
                     <td>
+                        <a button type="button" class="btn btn-secondary btn-sm" href="../Cadete/ModifyCadete?_Id=@elemento.Id">Modificar</a>
                         <a button type="button" class="btn btn-secondary btn-sm" href="../Cadete/DeleteCadete?_Id=@elemento.Id">Eliminar</a>
                     </td>
                 </tr>                

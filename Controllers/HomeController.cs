@@ -18,7 +18,7 @@ namespace tp032021_br1595.Controllers
         {
             _logger = logger;
         }
-
+        
         public IActionResult Index()
         {
             return View();
