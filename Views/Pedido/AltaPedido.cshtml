@@ -1,13 +1,12 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model List<EntidadesSistema.Cadeteria>
-@{
-    ViewData["Title"] = "Pagina de cadetes";
-}
+
+@model List<EntidadesSistema.Cadete>
+<div class="text-center">Pedido Nuevo</div>
 
 <div class="text-center">
-    <form asp-controller = "Cadete" asp-action="AgregarCadete" method="post">
+    <form asp-controller = "Pedido" asp-action="AgregarPedido" method="post">
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre</label>
             <input type="text" class="form-control" id="nombre" name="Nombre" required>
@@ -19,14 +18,10 @@
         <div class="mb-3">
             <label for="Telefono" class="form-label">Telefono</label>
             <input type="text" class="form-control" id="Telefono" name="Telefono" required>
-        </div>
+        </div>        
         <div class="mb-3">
-            <select  for="CadeteriaId" class="custom-select" name="CadeteriaId" style="text-align:center">
-                @foreach (var elemento in Model)
-                {
-                    <option value="@elemento.CadeteriaID" >@elemento.CadeteriaNombre</option>
-                }
-            </select>
+            <label for="Observacion" class="form-label" type="text"  required>Observaciones</label>
+            <input type="text" class="form-control" id="Observacion" name="Observacion" required>
         </div>
         <button type="submit" class="btn btn-primary">Enviar</button>
     </form>

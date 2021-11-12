@@ -4,8 +4,13 @@
 
 
 @model List<EntidadesSistema.Pedido>
+
 <div class="text-center">
-    <h1 class="display-4">Listado de Pedidos</h1>
+    <h2 class="display-4">Listado de Pedidos</h2>
+</div>
+<a type="button" asp-action="AltaCadete" class="btn btn-primary">Dar Alta Cadete</a>
+
+<div class="text-center">
     <table class="table table-striped" style="text-align:center">
     @if (Model.Count() != 0)
     {

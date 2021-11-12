@@ -28,14 +28,15 @@ namespace tp032021_br1595.Models
                 {
                     Pedido pedido = new Pedido()
                     {
-                        Numero = (int) DataReader["pedidoID"],
+                        Numero = Convert.ToInt32(DataReader["pedidoID"]),
                         Observacion = DataReader["pedidoObservacion"].ToString(),
                         Estado = DataReader["pedidoEstado"].ToString(),   
-                        ClienteID = (int) DataReader["clienteID"],
-                        CodigoCadete = (int) DataReader["cadeteID"]
+                        ClienteID = Convert.ToInt32(DataReader["clienteID"]),
+                        CodigoCadete = Convert.ToInt32(DataReader["cadeteID"])
                     };
                     ListadoPedidos.Add(pedido);
                 }
+                DataReader.Close();
                 conexion.Close();
             }
             return ListadoPedidos;

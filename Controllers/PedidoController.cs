@@ -14,24 +14,37 @@ namespace tp032021_br1595.Controllers
         private readonly ILogger<PedidoController> _logger;
         //private readonly DBTemporal _dB;
         private readonly RepositorioPedido _dBP;
+        private readonly RepositorioCadete _dB;
 
-        public PedidoController(ILogger<PedidoController> logger, RepositorioPedido DBP/*DBTemporal DB*/) 
+        public PedidoController(ILogger<PedidoController> logger, RepositorioPedido DBP/*DBTemporal DB*/, RepositorioCadete DB) 
         {
             _logger = logger;
             _dBP = DBP;
+            _dB = DB;
         }
         public IActionResult Index()
         {
-            //return View(_dB.ReadCadetesAlmacenados());
             return View(_dBP.getAll());
         }
 
-        public IActionResult AgregarPedido(string _Observacion, int _DNI, string _Nombre, string _Direccion, string _Telefono, int _CodigoCadete)
+        public IActionResult AltaPedido()
+        {
+            return View();
+        }
+        public IActionResult AgregarPedido()
+        {
+            return View(new Pedido());
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AgregarPedido(Pedido _Pedido)
         {
             //string estado = "En curso";
             //int numero = _dB.ReadPedidosAlmacenados().Count() + 1;
             //_dB.AddPedido(numero, _Observacion, estado, _DNI, _Nombre, _Direccion, _Telefono, _CodigoCadete);
-
+            _dBP.addPedido(_Pedido);
             return Redirect("Index");
         }
 

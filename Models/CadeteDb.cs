@@ -77,18 +77,18 @@ namespace tp032021_br1595.Models
             cadeteElegido.ListaCadeterias = _DBC.getAll();
             return cadeteElegido;
         }
+
         public void addCadete(Cadete _Cadete)
         {
-            string SQLQuery = @"INSERT INTO Cadetes (cadeteNombre, cadeteTelefono, cadeteDireccion, cadeteActivo) VALUES (@nombreCadete, @nombreTelefono, @nombreDireccion, @nombreCadeteriaID)";
-
+            string SQLQuery = @"INSERT INTO Cadetes (cadeteNombre, cadeteTelefono, cadeteDireccion, cadeteriaID) VALUES (@cadeteNombre, @cadeteTelefono, @cadeteDireccion, @cadeteCadeteriaID)";
             using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
             {
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
                 {
-                    command.Parameters.AddWithValue("@nombreCadete", _Cadete.Nombre);
-                    command.Parameters.AddWithValue("@nombreTelefono", _Cadete.Telefono);
-                    command.Parameters.AddWithValue("@nombreDireccion", _Cadete.Direccion);
-                    command.Parameters.AddWithValue("@nombreCadeteriaID", _Cadete.CadeteriaId);
+                    command.Parameters.AddWithValue("@cadeteNombre", _Cadete.Nombre);
+                    command.Parameters.AddWithValue("@cadeteTelefono", _Cadete.Telefono);
+                    command.Parameters.AddWithValue("@cadeteDireccion", _Cadete.Direccion);
+                    command.Parameters.AddWithValue("@cadeteCadeteriaID", _Cadete.CadeteriaId);
                     conexion.Open();
                     command.ExecuteNonQuery();
                     conexion.Close();
@@ -97,48 +97,47 @@ namespace tp032021_br1595.Models
         }
         public void modifyCadete(Cadete _Cadete)
         {
-            string SQLQuery = @"UPDATE Cadetes SET (cadeteNombre, cadeteTelefono, cadeteDireccion, cadeteActivo) VALUES (@nombreCadete, @nombreTelefono, @nombreDireccion, @nombreCadeteriaID)";
-
+            string SQLQuery = @"UPDATE Cadetes SET cadeteNombre = @cadeteNombre, cadeteTelefono = @cadeteTelefono, cadeteDireccion = @cadeteDireccion, cadeteriaID = @cadeteCadeteriaID WHERE cadeteID = @cadeteCodigo";
             using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
             {
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
                 {
-                    command.Parameters.AddWithValue("@nombreCadete", _Cadete.Nombre);
-                    command.Parameters.AddWithValue("@nombreTelefono", _Cadete.Telefono);
-                    command.Parameters.AddWithValue("@nombreDireccion", _Cadete.Direccion);
-                    command.Parameters.AddWithValue("@nombreCadeteriaID", _Cadete.CadeteriaId);
-                    conexion.Open();
-                    command.ExecuteNonQuery();
-                    conexion.Close();
-                }
-            }
-        }   
-        public void readmitCadete(Cadete _Cadete)
-        {
-            using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
-            {
-                string SQLQuery = "UPDATE Cadetes SET cadeteActivo = 1 WHERE cadeteID =" + _Cadete.Id + ";";
-                using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
-                {
+                    command.Parameters.AddWithValue("@cadeteNombre", _Cadete.Nombre);
+                    command.Parameters.AddWithValue("@cadeteTelefono", _Cadete.Telefono);
+                    command.Parameters.AddWithValue("@cadeteDireccion", _Cadete.Direccion);
+                    command.Parameters.AddWithValue("@cadeteCadeteriaID", _Cadete.CadeteriaId);
+                    command.Parameters.AddWithValue("@cadeteCodigo", _Cadete.Id);
                     conexion.Open();
                     command.ExecuteNonQuery();
                     conexion.Close();
                 }
             }
         }
+
+        public void readmitCadete(int _CadeteCodigo)
+        {
+            string SQLQuery = "UPDATE Cadetes SET cadeteEstado = @estado WHERE cadeteID = @cadeteCodigo;";
+            executeQueryEstado(_CadeteCodigo, SQLQuery, 1);
+        }
         public void deleteCadete(int _CadeteCodigo)
+        {
+            string SQLQuery = "UPDATE Cadetes SET cadeteEstado = @estado WHERE cadeteID = @cadeteCodigo";
+            executeQueryEstado(_CadeteCodigo, SQLQuery, 0);
+        }
+
+        public void executeQueryEstado(int _CadeteCodigo, string SQLQuery, int _Estado)
         {
             using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
             {
-                string SQLQuery = @"UPDATE Cadetes SET cadeteActivo = 0 WHERE cadeteID = @id;";
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
                 {
-                    command.Parameters.AddWithValue("@id", _CadeteCodigo);
+                    command.Parameters.AddWithValue("@estado", _Estado);
+                    command.Parameters.AddWithValue("@cadeteCodigo", _CadeteCodigo);
                     conexion.Open();
                     command.ExecuteNonQuery();
                     conexion.Close();
                 }
-            }  
+            }
         }
     }
 }
