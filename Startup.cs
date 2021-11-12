@@ -17,7 +17,7 @@ namespace tp032021_br1595
     public class Startup
     {
         //static List<Cadete> ListadoCadetes = new List<Cadete>();
-        static DBTemporal DB = new DBTemporal();
+        //static DBTemporal DB = new DBTemporal();
 
         public Startup(IConfiguration configuration)
         {
@@ -38,14 +38,19 @@ namespace tp032021_br1595
             services.AddSingleton(RepoCadeterias);
             RepositorioPedido RepoPedidos = new RepositorioPedido(Configuration.GetConnectionString("Default"));
             services.AddSingleton(RepoPedidos);
+            RepositorioUsuario RepoUsuarios = new RepositorioUsuario(Configuration.GetConnectionString("Default"));
+            services.AddSingleton(RepoUsuarios);
             var connectionString = Configuration.GetConnectionString("Default");
             services.AddControllersWithViews();//addRazorRuntimeCompilation();
-            services.AddSingleton(DB);//importante en esta altura del cursado
+            //services.AddSingleton(DB);
             services.AddDistributedMemoryCache();
             services.AddSession(options => 
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(1);//You can set Time   
+                options.IdleTimeout = TimeSpan.FromMinutes(1);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
             });
+
             services.AddMvc();
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,7 +70,7 @@ namespace tp032021_br1595
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

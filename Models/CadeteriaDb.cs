@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 using EntidadesSistema;
 using System.Data.SQLite;
+
 
 namespace tp032021_br1595.Models
 {
@@ -18,7 +20,8 @@ namespace tp032021_br1595.Models
 
         public List<Cadeteria> getAll()
         {
-            List<Cadeteria> ListadoCadeterias = new List<Cadeteria>();
+           
+            List <Cadeteria> ListadoCadeterias = new List<Cadeteria>();
             using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
             {
                 conexion.Open();
