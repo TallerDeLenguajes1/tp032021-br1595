@@ -17,6 +17,18 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <div>
+                        @await Component.InvokeAsync("PriorityList", new { maxPriority = 2, isDone = false })
+                    </div>
+                    @model IEnumerable<EntidadesSistema.OpcionMenu>
+
+                    <h3>Opciones</h3>
+                    <ul>
+                        @foreach (var todo in Model)
+                        {
+                            <li><a asp-controller="Usuario" asp-action="@todo.Url">@todo.Nombre</a></li>
+                        }
+                    </ul>
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Cadeteria" asp-action="Index">Lista de cadetes</a>
@@ -25,6 +37,8 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Pedido" asp-action="ListaPedidos">Pedidos</a>
                         </li>
                     </ul>
+                    -->
+
                 </div>
             </div>
         </nav>

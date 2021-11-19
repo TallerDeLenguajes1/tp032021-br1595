@@ -15,10 +15,14 @@ namespace tp032021_br1595.Models
         {
             this.connectionString = _ConnectionString;
         }
-        public bool StartLogin(string _Username, string _Contrasena)
+        public Usuario StartLogin(string _Username, string _Contrasena)
         {
-            bool resultado = false;
-            string SQLQuery = @"SELECT * FROM Usuarios WHERE usuarioNombre = @username AND usuarioPassword = @contrasena;";
+            Usuario usuario = new Usuario()
+            {
+                Nombre = "",
+                Clearance = 0
+            };
+            string SQLQuery = @"SELECT usuarioNombre, usuarioClearance FROM Usuarios WHERE usuarioNombre = @username AND usuarioPassword = @contrasena;";
             using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
             {
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
@@ -26,17 +30,23 @@ namespace tp032021_br1595.Models
                     command.Parameters.AddWithValue("@username", _Username);
                     command.Parameters.AddWithValue("@contrasena", _Contrasena);
                     conexion.Open();
-                    command.ExecuteNonQuery();
                     SQLiteDataReader DataReader = command.ExecuteReader();
                     if (DataReader.Read())
                     {
-                        resultado = true;
+                        usuario.Nombre = DataReader["usuarioNombre"].ToString();
+                        usuario.Clearance = Convert.ToInt32(DataReader["usuarioClearance"]);                     
                     }
                     DataReader.Close();
                     conexion.Close();
                 }
             }
-            return resultado;
+            return usuario;
+        }
+
+        public List<OpcionMenu> ObtenerOpciones()
+        {
+            List<OpcionMenu> asd = new List<OpcionMenu>();
+            return asd;
         }
     }
 }

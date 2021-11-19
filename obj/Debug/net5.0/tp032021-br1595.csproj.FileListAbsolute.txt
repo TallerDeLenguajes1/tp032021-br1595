@@ -861,3 +861,4 @@ C:\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Cadete\ModifyCadeteasd.cshtml.g.
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Cadete\ModifyCadeteasd.cshtml.g.cs
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Pedido\AltaPedido.cshtml.g.cs
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Pedido\asdasd.cshtml.g.cs
+C:\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Pedido\asdasd.cshtml.g.cs

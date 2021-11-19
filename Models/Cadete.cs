@@ -31,7 +31,7 @@ namespace EntidadesSistema
         public int PedidosActivos { get => pedidosActivos; set => pedidosActivos = value; }
         public int Activo { get => activo; set => activo = value; }
 
-        public Cadete() 
+        public Cadete()
         {
             ListadoPedidos = new List<Pedido>();
         }
@@ -46,17 +46,5 @@ namespace EntidadesSistema
             this.Activo = 1;
             this.TotalPagos = 0;
         }
-
-
-        public void AgregarPedido(Pedido _Pedido)
-        {
-            ListadoPedidos.Add(_Pedido);
-        }
-
-        public void EliminarPedido(Pedido _Pedido)
-        {
-            ListadoPedidos.Remove(_Pedido);
-        }
-
     }
 }

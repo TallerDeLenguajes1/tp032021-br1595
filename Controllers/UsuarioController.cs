@@ -7,6 +7,7 @@ using System.Data.SQLite;
 using tp032021_br1595.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
+using EntidadesSistema;
 
 namespace tp032021_br1595.Controllers
 {
@@ -30,9 +31,11 @@ namespace tp032021_br1595.Controllers
         [HttpPost]
         public IActionResult Login(string _Username, string _Contrasena)
         {
-            if(_dBU.StartLogin(_Username, _Contrasena))
+            Usuario usuario = _dBU.StartLogin(_Username, _Contrasena);
+            if (usuario.Clearance != 0)
             {
                 HttpContext.Session.SetString("Usuario",_Username);
+                HttpContext.Session.SetInt32("Clearance", usuario.Clearance);
                 return View();
             }
             else

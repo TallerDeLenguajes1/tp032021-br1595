@@ -45,46 +45,58 @@ namespace tp032021_br1595.Models
         {
             using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
             {
-                conexion.Open();
-                string SQLQuery = "INSERT INTO Pedidos SET pedidoObservacion ='" + _Pedido.Observacion + "', clienteID =" + _Pedido.ClienteID + ", cadeteID =" + _Pedido.CodigoCadete + ", pedidoEstado = 'Recibido';";
-                SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion);
-                conexion.Close();
+                string SQLQuery = @"INSERT INTO Pedidos SET pedidoObservacion = @Observacion, clienteID = @ClienteID, cadeteID = @CodigoCadete, pedidoEstado = 'Recibido';";
+                using(SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
+                {
+                    command.Parameters.AddWithValue("@Observacion", _Pedido.Observacion);
+                    command.Parameters.AddWithValue("@ClienteID", _Pedido.ClienteID);
+                    command.Parameters.AddWithValue("@CodigoCadete", _Pedido.CodigoCadete);
+                    conexion.Open();
+                    command.ExecuteNonQuery();
+                    conexion.Close();
+                }
             }
         }
         public void addPedidoCadete(Pedido _Pedido, Cadete _Cadete)
         {
             using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
             {
-                conexion.Open();
-                string SQLQuery = "UPDATE Pedidos SET cadeteId=" + _Cadete.Id + ", estadoPedido= 'En camino' WHERE pedidoID =" + _Pedido.Numero + ";";
-                SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion);
-                conexion.Close();
+                string SQLQuery = @"UPDATE Pedidos SET cadeteId= @cadeteId, estadoPedido= 'En camino' WHERE pedidoID = @pedidoID;";
+                using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
+                {
+                    command.Parameters.AddWithValue("@cadeteId", _Pedido.CodigoCadete);
+                    command.Parameters.AddWithValue("@pedidoID", _Pedido.Numero);
+                    conexion.Open();
+                    command.ExecuteNonQuery();
+                    conexion.Close();
+                }
             }
         }
 
         public void cancelPedido(Pedido _Pedido)
         {
-            Pedido PedidoSelecionado = new Pedido();
-            using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
-            {
-                conexion.Open();
-                string SQLQuery = "UPDATE Pedidos SET pedidoEstado= 'Cancelado' WHERE pedidoID =" + _Pedido.Numero + ";";
-                SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion);
-                conexion.Close();
-            }
+            executeTaskPedido(_Pedido, "Cancelado");
         }
         public void finishPedido(Pedido _Pedido)
         {
-            Pedido PedidoSelecionado = new Pedido();
-            using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
-            {
-                conexion.Open();
-                string SQLQuery = "UPDATE Pedidos SET pedidoEstado= 'Completado' WHERE pedidoID =" + _Pedido.Numero + ";";
-                SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion);
-                conexion.Close();
-            }
+            executeTaskPedido(_Pedido, "Completado");
         }
 
+        public void executeTaskPedido(Pedido _Pedido, string _Accion)
+        {
+            using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
+            {
+                string SQLQuery = @"UPDATE Pedidos SET pedidoEstado= @Accion WHERE pedidoID = @pedidoID;";
+                using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
+                {
+                    command.Parameters.AddWithValue("@pedidoEstado", _Accion);
+                    command.Parameters.AddWithValue("@pedidoID", _Pedido.Numero);
+                    conexion.Open();
+                    command.ExecuteNonQuery();
+                    conexion.Close();
+                }
+            }
+        }
         public PedidoCadetesViewModel getOneCadetes(RepositorioCadete _DB)
         {
             PedidoCadetesViewModel cadeteElegido = new PedidoCadetesViewModel();
