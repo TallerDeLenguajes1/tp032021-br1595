@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model List<EntidadesSistema.Cadete>
+<div class="text-center">Pedido Nuevo</div>
+
+<div class="text-center">
+    <form asp-controller = "Pedido" asp-action="AgregarPedido" method="post">
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" name="Nombre" required>
+        </div>
+        <div class="mb-3">
+            <label for="direccion" class="form-label">Direccion</label>
+            <input type="text" class="form-control" id="_Direccion" name="Direccion" required>
+        </div>
+        <div class="mb-3">
+            <label for="Telefono" class="form-label">Telefono</label>
+            <input type="text" class="form-control" id="Telefono" name="Telefono" required>
+        </div>        
+        <div class="mb-3">
+            <label for="Observacion" class="form-label" type="text"  required>Observaciones</label>
+            <input type="text" class="form-control" id="Observacion" name="Observacion" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>

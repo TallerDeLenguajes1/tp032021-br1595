@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EntidadesSistema
 { 
-    public class CadetePedidosViewModel
+    public class CadeteCadeteriasViewModel
     {
         private List<Cadeteria> listaCadeterias;
         private Cadete cadete;

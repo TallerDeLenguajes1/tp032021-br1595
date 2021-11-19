@@ -81,9 +81,9 @@ namespace tp032021_br1595.Models
             }
             return cadeteElegido;
         }
-        public CadetePedidosViewModel getOneCadeteria(int _CadeteCodigo, RepositorioCadeteria _DBC)
+        public CadeteCadeteriasViewModel getOneCadeteria(int _CadeteCodigo, RepositorioCadeteria _DBC)
         {
-            CadetePedidosViewModel cadeteElegido = new CadetePedidosViewModel();
+            CadeteCadeteriasViewModel cadeteElegido = new CadeteCadeteriasViewModel();
             cadeteElegido.Cadete = getOne(_CadeteCodigo);
             cadeteElegido.ListaCadeterias = _DBC.getAll();
             return cadeteElegido;

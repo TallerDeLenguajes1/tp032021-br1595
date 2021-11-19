@@ -33,8 +33,12 @@ namespace tp032021_br1595.Controllers
             if(_dBU.StartLogin(_Username, _Contrasena))
             {
                 HttpContext.Session.SetString("Usuario",_Username);
+                return View();
             }
-            return View();
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
     }
 }

@@ -84,6 +84,14 @@ namespace tp032021_br1595.Models
                 conexion.Close();
             }
         }
+
+        public PedidoCadetesViewModel getOneCadetes(RepositorioCadete _DB)
+        {
+            PedidoCadetesViewModel cadeteElegido = new PedidoCadetesViewModel();
+            cadeteElegido.Cadetes = _DB.getAll();
+            cadeteElegido.Pedido = new Pedido();
+            return cadeteElegido;
+        }
     }
 }
 

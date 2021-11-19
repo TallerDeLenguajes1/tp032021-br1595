@@ -1,28 +1,36 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@{
+    ViewData["Title"] = "View";
+}
+@model EntidadesSistema.PedidoCadetesViewModel
 
-@model List<EntidadesSistema.Cadete>
-<div class="text-center">Pedido Nuevo</div>
+<h4>Crear Pedido</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller = "Pedido" asp-action="AgregarPedido" method="post">
+            <div class="form-group">
+                <label asp-for="@Model.Pedido.Observacion" class="control-label"></label>
+                <input asp-for="@Model.Pedido.Observacion" name="Observacion" class="form-control" required/>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Pedido.ClienteID" class="control-label"></label>
+                <input asp-for="@Model.Pedido.ClienteID" name="ClienteID" class="form-control" required/>
+            </div>
+            <div class="form-group">
+                <select  for="@Model.Pedido.CodigoCadete" class="custom-select" name="CadeteID" style="text-align:center">
+                    @foreach (var elemento in Model.Cadetes)
+                    {
+                        <option value="@elemento.Id" >@elemento.Nombre</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Solicitar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
 
-<div class="text-center">
-    <form asp-controller = "Pedido" asp-action="AgregarPedido" method="post">
-        <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombre" name="Nombre" required>
-        </div>
-        <div class="mb-3">
-            <label for="direccion" class="form-label">Direccion</label>
-            <input type="text" class="form-control" id="_Direccion" name="Direccion" required>
-        </div>
-        <div class="mb-3">
-            <label for="Telefono" class="form-label">Telefono</label>
-            <input type="text" class="form-control" id="Telefono" name="Telefono" required>
-        </div>        
-        <div class="mb-3">
-            <label for="Observacion" class="form-label" type="text"  required>Observaciones</label>
-            <input type="text" class="form-control" id="Observacion" name="Observacion" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Enviar</button>
-    </form>
+<div>
+    <a asp-action="Index">Volver</a>
 </div>

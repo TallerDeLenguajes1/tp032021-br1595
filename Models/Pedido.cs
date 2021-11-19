@@ -19,7 +19,7 @@ namespace EntidadesSistema
         public string Estado { get => estado; set => estado = value; }
         public int CodigoCadete { get => codigoCadete; set => codigoCadete = value; }
 
-        public Pedido() { }
+        public Pedido(){}
         public Pedido(int _Numero, string _Observacion, string _Estado, int _ClienteID)
         {
             this.ClienteID = _ClienteID;

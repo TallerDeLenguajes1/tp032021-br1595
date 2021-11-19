@@ -29,7 +29,7 @@ namespace tp032021_br1595.Controllers
 
         public IActionResult AltaPedido()
         {
-            return View();
+            return View(_dBP.getOneCadetes(_dB));
         }
         public IActionResult AgregarPedido()
         {
