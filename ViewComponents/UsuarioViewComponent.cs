@@ -29,7 +29,16 @@ namespace tp032021_br1595.ViewComponents
         }
         private Task<List<OpcionMenu>> GetItemsAsync()
         {
-            var resultado = _dbu.ObtenerOpciones(Convert.ToInt32(_session.GetInt32("Clearance")));
+            List<OpcionMenu> resultado;
+            if (HttpContext.Session.GetString("Usuario") != null)
+            {
+                resultado = _dbu.ObtenerOpciones(Convert.ToInt32(_session.GetInt32("Clearance")));
+            }    
+            else
+            {
+                resultado = _dbu.ObtenerOpciones(0);
+            }
+            
             return Task.FromResult(resultado);
         }
     }

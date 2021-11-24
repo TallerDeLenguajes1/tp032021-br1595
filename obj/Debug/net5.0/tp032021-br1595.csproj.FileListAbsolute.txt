@@ -1294,3 +1294,4 @@ D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\tp032021-br1595.dl
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\ref\tp032021-br1595.dll
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\tp032021-br1595.pdb
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\tp032021-br1595.genruntimeconfig.cache
+D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Shared\Components\Usuario\Default.cshtml.g.cs

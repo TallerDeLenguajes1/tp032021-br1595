@@ -18,17 +18,17 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <div>
-                        @if( 0 != 0)
-                        {
-                            @await Component.InvokeAsync("Usuario")
+                        @await Component.InvokeAsync("Usuario")
                             @model List<EntidadesSistema.OpcionMenu>
-                            <ul class="navbar-nav flex-grow-1">
-                                @foreach (var todo in Model)
-                                {
-                                <li class="nav-item"><a asp-controller="@todo.Controlador" asp-action="@todo.Url">@todo.Nombre</a></li>
-                                }
-                            </ul>                            
-                        }
+                                <ul class="navbar-nav flex-grow-1">
+                                    @if(Model != null)
+                                    {
+                                        @foreach (var todo in Model)
+                                        {
+                                            <li class="nav-item"><a asp-controller="@todo.Controlador" asp-action="@todo.Url">@todo.Nombre</a></li>
+                                        }                                
+                                    }
+                                </ul>      
                     </div>
                 </div>
             </div>
