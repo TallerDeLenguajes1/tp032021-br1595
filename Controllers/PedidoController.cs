@@ -15,12 +15,14 @@ namespace tp032021_br1595.Controllers
         //private readonly DBTemporal _dB;
         private readonly RepositorioPedido _dBP;
         private readonly RepositorioCadete _dB;
+        private readonly RepositorioCliente _dBCL;
 
-        public PedidoController(ILogger<PedidoController> logger, RepositorioPedido DBP/*DBTemporal DB*/, RepositorioCadete DB) 
+        public PedidoController(ILogger<PedidoController> logger, RepositorioPedido DBP/*DBTemporal DB*/, RepositorioCadete DB, RepositorioCliente DBCL) 
         {
             _logger = logger;
             _dBP = DBP;
             _dB = DB;
+            _dBCL = DBCL;
         }
         public IActionResult Index()
         {
@@ -29,7 +31,7 @@ namespace tp032021_br1595.Controllers
 
         public IActionResult AltaPedido()
         {
-            return View(_dBP.getOneCadetes(_dB));
+            return View(_dBP.getOneCadetesClientes(_dB, _dBCL));
         }
         public IActionResult AgregarPedido()
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -43,10 +44,33 @@ namespace tp032021_br1595.Models
             return usuario;
         }
 
-        public List<OpcionMenu> ObtenerOpciones()
+        public List<OpcionMenu> ObtenerOpciones(int _Clearance)
         {
-            List<OpcionMenu> asd = new List<OpcionMenu>();
-            return asd;
+            List<OpcionMenu> opciones = new List<OpcionMenu>();
+            string SQLQuery = @"SELECT opcionURL, opcionNombre, opcionControlador,opcionClearance FROM Opciones WHERE opcionClearance = @opcionClearance;";
+            using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
+            {
+                using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
+                {                    
+                    command.Parameters.AddWithValue("@opcionClearance", _Clearance);
+                    conexion.Open();
+                    SQLiteDataReader DataReader = command.ExecuteReader();
+                    while (DataReader.Read())
+                    {
+                        OpcionMenu opcion = new OpcionMenu
+                        {
+                            Url = DataReader["opcionURL"].ToString(),
+                            Nombre = DataReader["opcionNombre"].ToString(),
+                            Clearance = Convert.ToInt32(DataReader["opcionClearance"]),
+                            Controlador = DataReader["opcionControlador"].ToString()
+                        };
+                        opciones.Add(opcion); 
+                    }
+                    DataReader.Close();
+                    conexion.Close();
+                }
+            }
+            return opciones;
         }
     }
 }

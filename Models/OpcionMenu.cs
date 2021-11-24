@@ -9,6 +9,7 @@ namespace EntidadesSistema
     {
         public string Url { get; set; }
         public string Nombre { get; set; }
-        public int Clearance { get; set; }        
+        public string Controlador { get; set; }
+        public int Clearance { get; set; }    
     }
 }

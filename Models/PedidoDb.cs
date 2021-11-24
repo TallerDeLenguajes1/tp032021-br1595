@@ -97,10 +97,11 @@ namespace tp032021_br1595.Models
                 }
             }
         }
-        public PedidoCadetesViewModel getOneCadetes(RepositorioCadete _DB)
+        public PedidoCadetesViewModel getOneCadetesClientes(RepositorioCadete _DB, RepositorioCliente _DBC)
         {
             PedidoCadetesViewModel cadeteElegido = new PedidoCadetesViewModel();
             cadeteElegido.Cadetes = _DB.getAll();
+            cadeteElegido.Clientes = _DBC.getAll();
             cadeteElegido.Pedido = new Pedido();
             return cadeteElegido;
         }

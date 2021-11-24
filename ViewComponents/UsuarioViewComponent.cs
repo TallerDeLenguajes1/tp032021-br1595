@@ -5,28 +5,32 @@ using System.Linq;
 using System.Threading.Tasks;
 using tp032021_br1595.Models;
 using EntidadesSistema;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Session;
 
 namespace tp032021_br1595.ViewComponents
 {
+    [ViewComponent(Name = "Usuario")]
     public class UsuarioViewComponent : ViewComponent
     {
         private readonly RepositorioUsuario _dbu;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private ISession _session => _httpContextAccessor.HttpContext.Session;
 
         public UsuarioViewComponent(RepositorioUsuario dBU)
         {
             _dbu = dBU;
         }
-        /*
-        public async Task<IViewComponentResult> InvokeAsync(
-        int maxPriority, bool isDone)
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            var items = await GetItemsAsync(maxPriority, isDone);
+            var items = await GetItemsAsync();
             return View(items);
-        }/*
-        private Task<List<string>> GetItemsAsync(int maxPriority, bool isDone)
+        }
+        private Task<List<OpcionMenu>> GetItemsAsync()
         {
-            return _dbu.ObtenerOpciones.Where(x => x.IsDone == isDone &&
-                                 x.Priority <= maxPriority).ToListAsync();
-        }*/
+            var resultado = _dbu.ObtenerOpciones(Convert.ToInt32(_session.GetInt32("Clearance")));
+            return Task.FromResult(resultado);
+        }
     }
 }

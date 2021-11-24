@@ -26,16 +26,7 @@ namespace tp032021_br1595.Models
                 SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion);
                 SQLiteDataReader DataReader = command.ExecuteReader();
                 while(DataReader.Read() )
-                {/*
-                    var Id = (DataReader["cadeteID"]);
-                    var Nombre = DataReader["cadeteNombre"];
-                    var Telefono = DataReader["cadeteTelefono"];
-                    var Direccion = DataReader["cadeteDireccion"];
-                    var CadeteriaId = DataReader["cadeteriaID"];
-                    var Activo = (DataReader["cadeteActivo"]);
-                    var TotalPagos =(DataReader["cadeteTotalPagos"]);
-                    var PedidosActivos = (DataReader["cadetePedidosActivos"]);
-                    var PedidosRealizados = (DataReader["cadetePedidosRealizados"]);*/
+                {
                     Cadete cadete = new Cadete()
                     {
                         Id = Convert.ToInt32(DataReader["cadeteID"]) ,

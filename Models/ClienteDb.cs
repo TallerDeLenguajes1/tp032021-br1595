@@ -46,7 +46,7 @@ namespace tp032021_br1595.Models
             using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
             {
                 conexion.Open();
-                string SQLQuery = "INSERT INTO Clientes SET clienteNombre ='" + _Cliente.Nombre + "', clienteTelefono ='" + _Cliente.Telefono + "', clienteDireccion ='" + _Cliente.Direccion + "', clienteEstado = 1 ;";
+                string SQLQuery = @"INSERT INTO Clientes SET clienteNombre ='" + _Cliente.Nombre + "', clienteTelefono ='" + _Cliente.Telefono + "', clienteDireccion ='" + _Cliente.Direccion + "', clienteEstado = 1 ;";
                 SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion);
                 conexion.Close();
             }

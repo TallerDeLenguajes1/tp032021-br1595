@@ -40,6 +40,8 @@ namespace tp032021_br1595
             services.AddSingleton(RepoPedidos);
             RepositorioUsuario RepoUsuarios = new RepositorioUsuario(Configuration.GetConnectionString("Default"));
             services.AddSingleton(RepoUsuarios);
+            RepositorioCliente RepoClientes = new RepositorioCliente(Configuration.GetConnectionString("Default"));
+            services.AddSingleton(RepoClientes);
             var connectionString = Configuration.GetConnectionString("Default");
             services.AddControllersWithViews();//addRazorRuntimeCompilation();
             //services.AddSingleton(DB);
