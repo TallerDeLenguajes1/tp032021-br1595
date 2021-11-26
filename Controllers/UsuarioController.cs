@@ -43,5 +43,13 @@ namespace tp032021_br1595.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+        /*
+         * public int aslfaSFAS {get; set;}
+         * [required(ErrorMessage = "El campo balbalbal")]
+         * [StringLength(100)]
+         * public nombreclase(){}
+         * CreateMap<dedonde, acual>()>reversemap()
+         */
+
     }
 }

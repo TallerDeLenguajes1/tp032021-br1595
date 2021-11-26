@@ -15,8 +15,6 @@ namespace tp032021_br1595.ViewComponents
     public class UsuarioViewComponent : ViewComponent
     {
         private readonly RepositorioUsuario _dbu;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private ISession _session => _httpContextAccessor.HttpContext.Session;
 
         public UsuarioViewComponent(RepositorioUsuario dBU)
         {
@@ -32,7 +30,7 @@ namespace tp032021_br1595.ViewComponents
             List<OpcionMenu> resultado;
             if (HttpContext.Session.GetString("Usuario") != null)
             {
-                resultado = _dbu.ObtenerOpciones(Convert.ToInt32(_session.GetInt32("Clearance")));
+                resultado = _dbu.ObtenerOpciones(Convert.ToInt32(HttpContext.Session.GetInt32("Clearance")));
             }    
             else
             {
