@@ -15,6 +15,8 @@ namespace tp032021_br1595.Models.SQLite
         void cancelPedido(Pedido _Pedido);
         void finishPedido(Pedido _Pedido);
         PedidoViewModel getOneCadetesClientes(DataContext _DB);
+        List<Pedido> getAllPedidosCliente(int _CodigoCliente);
+        void cancelarPedido(int _Id);
 
     }
 }

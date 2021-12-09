@@ -136,6 +136,62 @@ namespace tp032021_br1595.Models.SQLite
             cadeteElegido.Pedido = new Pedido();
             return cadeteElegido;
         }
+        public List<Pedido> getAllPedidosCliente(int _CodigoCliente)
+        {
+            List<Pedido> ListadoPedidos = new List<Pedido>();
+            try
+            {
+                using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
+                {
+                    conexion.Open();
+                    string SQLQuery = @"SELECT * FROM Pedidos WHERE ClienteID = @ClienteID;";
+                    SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion);
+                    command.Parameters.AddWithValue("@ClienteID", _CodigoCliente);
+                    SQLiteDataReader DataReader = command.ExecuteReader();
+                    while (DataReader.Read())
+                    {
+                        Pedido pedido = new Pedido()
+                        {
+                            Numero = Convert.ToInt32(DataReader["pedidoID"]),
+                            Observacion = DataReader["pedidoObservacion"].ToString(),
+                            Estado = DataReader["pedidoEstado"].ToString(),
+                            ClienteID = Convert.ToInt32(DataReader["clienteID"]),
+                            CodigoCadete = Convert.ToInt32(DataReader["cadeteID"])
+                        };
+                        ListadoPedidos.Add(pedido);
+                    }
+                    DataReader.Close();
+                    conexion.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+            return ListadoPedidos;
+        }
+        public void cancelarPedido(int _Id)
+        {
+            try
+            {
+                string SQLQuery = @"UPDATE Pedidos SET pedidoEstado = @pedidoEstado WHERE pedidoID = @pedidoID;";
+                using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
+                {
+                    using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
+                    {
+                        command.Parameters.AddWithValue("@pedidoID", _Id);
+                        command.Parameters.AddWithValue("@pedidoEstado", "Cancelado");
+                        conexion.Open();
+                        command.ExecuteNonQuery();
+                        conexion.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+        }
     }
 }
 

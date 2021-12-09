@@ -4,9 +4,20 @@
 
 @model IEnumerable<EntidadesSistema.OpcionMenu>
 
-<ul>
-    @foreach (var elemento in Model)
+<nav class="navbar navbar-expand-lg navbar-light bg-light">    
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      
+    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">tp032021_br1595</a>
+   
+    <div class="navbar-nav">
+      @foreach (var elemento in Model)
     {
-        <a asp-controller="@elemento.Controlador" asp-action="@elemento.Url"><li>@elemento.Nombre</li></a>
+        <a class="nav-item nav-link" asp-controller="@elemento.Controlador" asp-action="@elemento.Url"><li>@elemento.Nombre</li></a>
     }
+    </div>
+  </div>
+</nav>
+<ul>
+
+    
 </ul>

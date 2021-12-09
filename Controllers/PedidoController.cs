@@ -61,17 +61,42 @@ namespace tp032021_br1595.Controllers
 
                 };
                 _db.Pedidos.addPedido(pedido);
-                return RedirectToAction(nameof(Index));
+                if(HttpContext.Session.GetInt32("Clearance") != 1)
+                {
+                    return RedirectToAction(nameof(EstadoPedidos));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Index));
+                }
             }
             catch
             {
                 return NotFound();
             }
         }
-
+        //No recuerdo usarlo pero lo dejo por las dudas rompa algo
         public IActionResult ListaPedidos()
         {
             return View(_db.Pedidos.getAll());
+        }
+        public IActionResult EstadoPedidos()
+        {
+            try
+            {
+                List<Pedido> listadoPedidos = _db.Pedidos.getAllPedidosCliente(Convert.ToInt32(HttpContext.Session.GetString("UsuarioID")));
+                var listPedidoViewModel = mapper.Map<List<PedidoViewModel>>(listadoPedidos);
+                return View(listPedidoViewModel);
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+        public IActionResult CancelarPedido(int _Id)
+        {
+            _db.Pedidos.cancelarPedido(_Id);
+            return RedirectToAction("EstadoPedidos");
         }
     }
 }
