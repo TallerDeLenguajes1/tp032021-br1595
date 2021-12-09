@@ -54,7 +54,7 @@ namespace tp032021_br1595.Controllers
                 {
                     var usuariodb = mapper.Map<Usuario>(_Usuario);
                     _db.Usuarios.addUsuario(usuariodb);
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Index), "Home");
                 }
                 else
                 {
