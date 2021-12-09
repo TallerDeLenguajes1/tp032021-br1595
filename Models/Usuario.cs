@@ -12,5 +12,6 @@ namespace EntidadesSistema
         public int Clearance { get; set; }
         public string Email { get; set; }
         public string Contrasenia { get; set; }
+        public Usuario() { }
     }
 }

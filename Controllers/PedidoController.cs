@@ -50,13 +50,14 @@ namespace tp032021_br1595.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AgregarPedido(string Observacion)
+        public IActionResult AgregarPedido(string Observacion, string Direccion)
         {
             try
             {
                 Pedido pedido = new Pedido()
                 {
                     ClienteID = Convert.ToInt32(HttpContext.Session.GetString("UsuarioID")),
+                    Direccion = Direccion,
                     Observacion = Observacion
 
                 };

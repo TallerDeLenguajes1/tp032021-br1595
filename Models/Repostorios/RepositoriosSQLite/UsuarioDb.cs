@@ -27,7 +27,7 @@ namespace tp032021_br1595.Models.SQLite
                 using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
                 {
                     conexion.Open();
-                    string SQLQuery = "SELECT usuarioID, usuarioNombre, usuarioClearance FROM Usuarios;";
+                    string SQLQuery = "SELECT usuarioID, usuarioNombre, usuarioClearance, usuarioEmail FROM Usuarios;";
                     SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion);
                     SQLiteDataReader DataReader = command.ExecuteReader();
                     while (DataReader.Read())
@@ -36,6 +36,7 @@ namespace tp032021_br1595.Models.SQLite
                         {
                             UsuarioID = DataReader["usuarioID"].ToString(),
                             Nombre = DataReader["usuarioNombre"].ToString(),
+                            Email = DataReader["usuarioEmail"].ToString(),
                             Clearance = Convert.ToInt32(DataReader["usuarioClearance"])
                         };
                         ListadoUsuarios.Add(usuario);

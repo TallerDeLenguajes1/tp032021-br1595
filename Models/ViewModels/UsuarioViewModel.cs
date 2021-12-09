@@ -28,7 +28,8 @@ namespace EntidadesSistema
 
     public class UsuarioViewModel
     {
-        public int IdUsuario { get; set; }
+        public int UsuarioID { get; set; }
+        public int Clearance { get; set; }
 
         [Required(ErrorMessage = "Este Campo es requerido")]
         [StringLength(200, ErrorMessage = "El campo debe tener como máximo {0}")]

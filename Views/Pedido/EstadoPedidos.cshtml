@@ -16,6 +16,7 @@
             <th>Numero</th> 
             <th>Obersvacion</th>
             <th>Estado</th>
+            <th>Dirección</th>
             <th>Acción</th>
         </tr>
         @foreach (var item in Model)
@@ -23,6 +24,7 @@
             <tr>
                 <td>@item.Numero</td>
                 <td>@item.Observacion</td>
+                <td>@item.Direccion</td>
                 <td>@item.Estado</td>
                 @if(@item.Estado != "Cancelado")
                 {

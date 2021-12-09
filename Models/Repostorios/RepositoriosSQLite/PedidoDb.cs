@@ -37,6 +37,7 @@ namespace tp032021_br1595.Models.SQLite
                             Numero = Convert.ToInt32(DataReader["pedidoID"]),
                             Observacion = DataReader["pedidoObservacion"].ToString(),
                             Estado = DataReader["pedidoEstado"].ToString(),
+                            Direccion = DataReader["pedidoDireccion"].ToString(),
                             ClienteID = Convert.ToInt32(DataReader["clienteID"]),
                             CodigoCadete = Convert.ToInt32(DataReader["cadeteID"])
                         };
@@ -156,6 +157,7 @@ namespace tp032021_br1595.Models.SQLite
                             Observacion = DataReader["pedidoObservacion"].ToString(),
                             Estado = DataReader["pedidoEstado"].ToString(),
                             ClienteID = Convert.ToInt32(DataReader["clienteID"]),
+                            Direccion = DataReader["pedidoDireccion"].ToString(),
                             CodigoCadete = Convert.ToInt32(DataReader["cadeteID"])
                         };
                         ListadoPedidos.Add(pedido);
