@@ -20,13 +20,13 @@
             <div class="col-md-4 offset-md-4">
                 <div class="login-form bg-light mt-4 p-4">
                     <form asp-controller = "Usuario" asp-action="Login"  method="post" class="row g-3">
-                        <h4>Welcome Back</h4>
+                        <h4>Bienvenido</h4>
                         <div class="col-12">
-                            <label>Username</label>
+                            <label>Nombre de usuario</label>
                             <input type="text" name="_Username" class="form-control" placeholder="Username">
                         </div>
                         <div class="col-12">
-                            <label>Password</label>
+                            <label>Contraseña</label>
                             <input type="password" name="_Contrasena" class="form-control" placeholder="Password">
                         </div>
                         <div class="col-12">
@@ -41,7 +41,7 @@
                     </form>
                     <hr class="mt-4">
                     <div class="col-12">
-                        <p class="text-center mb-0">Have not account yet? <a href="#">Signup</a></p>
+                        <p class="text-center mb-0">No tiene cuenta?<a asp-controller="Usuario" asp-action="AltaUsuario">Subscribirse</a></p>
                     </div>
                 </div>
             </div>

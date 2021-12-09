@@ -1,7 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model List<EntidadesSistema.Cadeteria>
+@model EntidadesSistema.AltaCadeteViewModel
 @{
     ViewData["Title"] = "Pagina de cadetes";
 }
@@ -22,7 +22,7 @@
         </div>
         <div class="mb-3">
             <select  for="CadeteriaId" class="custom-select" name="CadeteriaId" style="text-align:center">
-                @foreach (var elemento in Model)
+                @foreach (var elemento in Model.ListaCadeterias)
                 {
                     <option value="@elemento.CadeteriaID" >@elemento.CadeteriaNombre</option>
                 }

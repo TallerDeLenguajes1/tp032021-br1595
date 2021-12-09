@@ -7,20 +7,13 @@ namespace EntidadesSistema
 {
     public class Cadeteria
     {
-        private List<Cadete> cadetes;
-        private List<Pedido> pedidos;
-        private string cadeteriaID;
-        private string cadeteriaNombre;
-        public List<Cadete> Cadetes { get => cadetes; set => cadetes = value; }
-        public List<Pedido> Pedidos { get => pedidos; set => pedidos = value; }
-        public string CadeteriaID { get => cadeteriaID; set => cadeteriaID = value; }
-        public string CadeteriaNombre { get => cadeteriaNombre; set => cadeteriaNombre = value; }
-
+        public string CadeteriaID { get; set; }
+        public string CadeteriaNombre { get; set; }
         public Cadeteria() { }
         public Cadeteria(string _CadeteriaID, string _CadeteriaNombre)
         {
-            this.cadeteriaID = _CadeteriaID;
-            this.cadeteriaNombre = _CadeteriaNombre;
+            this.CadeteriaID = _CadeteriaID;
+            this.CadeteriaNombre = _CadeteriaNombre;
         }
 
     }

@@ -1274,11 +1274,9 @@ D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Cadete
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Cadete\DeleteCadete.cshtml.g.cs
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Cadete\Index.cshtml.g.cs
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Cadete\ModifyCadete.cshtml.g.cs
-D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Cadete\ModifyCadeteasd.cshtml.g.cs
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Pedido\AltaPedido.cshtml.g.cs
-D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Pedido\asdasd.cshtml.g.cs
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Pedido\Index.cshtml.g.cs
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
@@ -1295,3 +1293,10 @@ D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\ref\tp032021-br159
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\tp032021-br1595.pdb
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\tp032021-br1595.genruntimeconfig.cache
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Shared\Components\Usuario\Default.cshtml.g.cs
+D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\bin\Debug\net5.0\AutoMapper.dll
+D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\bin\Debug\net5.0\NLog.config
+D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Pedido\AltaPedido - Copy.cshtml.g.cs
+D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Usuario\AltaUsuario.cshtml.g.cs

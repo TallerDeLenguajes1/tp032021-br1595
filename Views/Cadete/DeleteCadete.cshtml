@@ -3,7 +3,7 @@
 *@
 @{
 }
-@model EntidadesSistema.Cadete
+@model EntidadesSistema.DeleteCadeteViewModel
 
 <div class="text-center">
     <h3 class="display-4">El siguiente cadete será elminado</h3>
@@ -21,13 +21,13 @@
         </tr>
 
         <tr>
-            <td>@Model.Id</td>
+            <td>@Model.IdCadete</td>
             <td>@Model.Nombre</td>
             <td>@Model.Direccion</td>
             <td>@Model.PedidosRealizados</td>
             <td>@Model.PedidosActivos</td>
             <td>
-                <a button type="button" class="btn btn-secondary btn-sm" href="DeleteForGoodCadete?_Id=@Model.Id" >Eliminar</a>
+                <a button type="button" class="btn btn-secondary btn-sm" href="DeleteForGoodCadete?_Id=@Model.IdCadete" >Eliminar</a>
                 <a button type="button" class="btn btn-secondary btn-sm" asp-controller="Cadete" asp-action="Index" >Cancelar</a>
             </td>
         </tr>

@@ -14,7 +14,6 @@ namespace EntidadesSistema
         private string direccion;
         private string telefono;
         private List<Pedido> listadoPedidos;
-        private decimal totalPagos;
         private string cadeteriaId;
         private int pedidosRealizados;
         private int pedidosActivos;
@@ -25,7 +24,6 @@ namespace EntidadesSistema
         public string Direccion { get => direccion; set => direccion = value; }
         public string Telefono { get => telefono; set => telefono = value; }
         public List<Pedido> ListadoPedidos { get => listadoPedidos; set => listadoPedidos = value; }
-        public decimal TotalPagos { get => totalPagos; set => totalPagos = value; }
         public string CadeteriaId { get => cadeteriaId; set => cadeteriaId = value; }
         public int PedidosRealizados { get => pedidosRealizados; set => pedidosRealizados = value; }
         public int PedidosActivos { get => pedidosActivos; set => pedidosActivos = value; }
@@ -44,7 +42,6 @@ namespace EntidadesSistema
             this.Telefono = _Telefono;
             this.ListadoPedidos = new List<Pedido>();
             this.Activo = 1;
-            this.TotalPagos = 0;
         }
     }
 }

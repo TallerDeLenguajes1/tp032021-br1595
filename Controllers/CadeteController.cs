@@ -6,65 +6,125 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using EntidadesSistema;
 using tp032021_br1595.Models;
+using tp032021_br1595.Models.Repostorios;
+using AutoMapper;
 
 namespace tp032021_br1595.Controllers
 {
     public class CadeteController : Controller
     {
-        //private readonly DBTemporal _dB;
+        private readonly DataContext _db;
         private readonly ILogger<CadeteController> _logger;
-        private readonly RepositorioCadete _dB;
-        private readonly RepositorioCadeteria _dBC;
-        public CadeteController(ILogger<CadeteController> logger,  RepositorioCadete DB, RepositorioCadeteria DBC /*DBTemporal DB*/)
+        private readonly IMapper mapper;
+        public CadeteController(ILogger<CadeteController> logger,  DataContext DB, IMapper mapper)
         {
             _logger = logger;
-            _dB = DB;
-            _dBC = DBC;
+            _db = DB;
+            this.mapper = mapper;
         }
         public IActionResult Index()
         {
-            //return View(_dB.ReadCadetesAlmacenados());
-            return View(_dB.getAll());
+            try
+            {
+                List<Cadete> listaCadetes = _db.Cadetes.getAll();
+                var listCadetes = mapper.Map<List<CadeteViewModel>>(listaCadetes);
+                return View(listCadetes);
+            }
+            catch(Exception ex)
+            {
+                string error = ex.ToString();
+                return NotFound();
+            }
         }
 
         public IActionResult AltaCadete()
         {
-            return View(_dBC.getAll());
+            try
+            {
+                List<Cadeteria> listaCadeterias = _db.Cadeterias.getAll();
+                AltaCadeteViewModel listCadeterias = new AltaCadeteViewModel()
+                {
+                    ListaCadeterias = listaCadeterias
+                };
+                return View(listCadeterias);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                return NotFound();
+            }
         }
         public ActionResult AgregarCadete()
         {
-            return View(new Cadete());
+            return View(new AltaCadeteViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AgregarCadete(Cadete _Cadete)
+        public IActionResult AgregarCadete(AltaCadeteViewModel _Cadete)
         {
-            //_dB.SaveCadete(_Dni, _Nombre, _Direccion, _Telefono);
-            _dB.addCadete(_Cadete);
-            return Redirect("Index");
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var cadetedb = mapper.Map<Cadete>(_Cadete);
+                    _db.Cadetes.addCadete(cadetedb);
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(AgregarCadete));
+                }
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
         public IActionResult DeleteCadete(int _Id)
         {
-            return View(_dB.getOne(_Id));
+            return View(_db.Cadetes.getOne(_Id));
         }
 
         public IActionResult DeleteForGoodCadete(int _Id)
         {
-            _dB.deleteCadete(_Id);
+            _db.Cadetes.deleteCadete(_Id);
             return RedirectToAction("Index");
         }
         
         public IActionResult ModifyCadete(int _Id)
         {
-            return View(_dB.getOneCadeteria(_Id, _dBC));
+            try
+            {
+                var cadeteModificar = _db.Cadetes.getOneCadeteria(_Id, _db);
+                return View(cadeteModificar);
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
-        public IActionResult ModifyForGoodCadete(Cadete _Cadete)
+        public IActionResult ModifyForGoodCadete(CadeteViewModel _Cadete)
         {
-            _dB.modifyCadete(_Cadete);
-            return RedirectToAction("Index");
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var cadetedb = mapper.Map<Cadete>(_Cadete);
+                    _db.Cadetes.modifyCadete(cadetedb);
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(ModifyCadete));
+                }
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
     }
 }

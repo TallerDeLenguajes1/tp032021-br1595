@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,21 +9,62 @@ using tp032021_br1595.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using EntidadesSistema;
+using tp032021_br1595.Models.Repostorios;
+using AutoMapper;
 
 namespace tp032021_br1595.Controllers
 {
     public class UsuarioController : Controller
     {
+        private readonly DataContext _db;
         private readonly ILogger<UsuarioController> _logger;
-        private readonly RepositorioUsuario _dBU;
-        public UsuarioController(ILogger<UsuarioController> logger, RepositorioUsuario DBU)
+        private readonly IMapper mapper;
+        public UsuarioController(ILogger<UsuarioController> logger, DataContext DB, IMapper mapper)
         {
             _logger = logger;
-            _dBU = DBU;
+            _db = DB;
+            this.mapper = mapper;
         }
         public IActionResult Index()
         {
-            return View();
+            try
+            {
+                List<Usuario> listadoUsuarios = _db.Usuarios.GetAll();
+                var listUsuariosViewModel = mapper.Map<List<UsuarioViewModel>>(listadoUsuarios);
+                return View(listUsuariosViewModel);
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
+        public ActionResult AltaUsuario()
+        {
+            return View(new AltaUsuarioViewModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AltaUsuario(AltaUsuarioViewModel _Usuario)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var usuariodb = mapper.Map<Usuario>(_Usuario);
+                    _db.Usuarios.addUsuario(usuariodb);
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(AltaUsuario));
+                }
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
         public IActionResult Login()
         {
@@ -31,25 +73,26 @@ namespace tp032021_br1595.Controllers
         [HttpPost]
         public IActionResult Login(string _Username, string _Contrasena)
         {
-            Usuario usuario = _dBU.StartLogin(_Username, _Contrasena);
-            if (usuario.Clearance != 0)
+            try
             {
-                HttpContext.Session.SetString("Usuario",_Username);
-                HttpContext.Session.SetInt32("Clearance", usuario.Clearance);
-                return View();
+                Usuario usuario = _db.Usuarios.StartLogin(_Username, _Contrasena);
+                if (usuario.Clearance != 0)
+                {
+                    HttpContext.Session.SetString ("Usuario", _Username);
+                    HttpContext.Session.SetInt32("Clearance", usuario.Clearance);
+                    HttpContext.Session.SetString("UsuarioID", usuario.UsuarioID);
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
-            else
+            catch(Exception ex)
             {
+                string error = ex.ToString();
                 return RedirectToAction("Index", "Home");
             }
         }
-        /*
-         * public int aslfaSFAS {get; set;}
-         * [required(ErrorMessage = "El campo balbalbal")]
-         * [StringLength(100)]
-         * public nombreclase(){}
-         * CreateMap<dedonde, acual>()>reversemap()
-         */
-
     }
 }

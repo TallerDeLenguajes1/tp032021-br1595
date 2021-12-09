@@ -6,19 +6,20 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
 using EntidadesSistema;
 using tp032021_br1595.Models;
-//using NLog;
+using tp032021_br1595.Models.Repostorios;
+using AutoMapper;
+using NLog;
+using NLog.Web;
+using tp032021_br1595.Models.SQLite;
 
 namespace tp032021_br1595
 {
     public class Startup
     {
-        //static List<Cadete> ListadoCadetes = new List<Cadete>();
-        //static DBTemporal DB = new DBTemporal();
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,21 +31,39 @@ namespace tp032021_br1595
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHealthChecks();
-
+            services.AddAutoMapper(typeof(SistemaDeCadeterias.PerfilDeMapeo));
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddAuthorization();
-            RepositorioCadete RepoCadetes = new RepositorioCadete(Configuration.GetConnectionString("Default"));
-            services.AddSingleton(RepoCadetes);
-            RepositorioCadeteria RepoCadeterias = new RepositorioCadeteria(Configuration.GetConnectionString("Default"));
-            services.AddSingleton(RepoCadeterias);
-            RepositorioPedido RepoPedidos = new RepositorioPedido(Configuration.GetConnectionString("Default"));
-            services.AddSingleton(RepoPedidos);
-            RepositorioUsuario RepoUsuarios = new RepositorioUsuario(Configuration.GetConnectionString("Default"));
-            services.AddSingleton(RepoUsuarios);
-            RepositorioCliente RepoClientes = new RepositorioCliente(Configuration.GetConnectionString("Default"));
-            services.AddSingleton(RepoClientes);
-            var connectionString = Configuration.GetConnectionString("Default");
-            services.AddControllersWithViews();//addRazorRuntimeCompilation();
-            //services.AddSingleton(DB);
+
+            RepositorioCadete RepoCadetes = 
+                new RepositorioCadete(
+                    Configuration.GetConnectionString("Default"), 
+                    NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger());
+
+            RepositorioCadeteria RepoCadeterias = 
+                new RepositorioCadeteria(
+                    Configuration.GetConnectionString("Default"),
+                    NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger());
+
+            RepositorioPedido RepoPedidos = 
+                new RepositorioPedido(
+                    Configuration.GetConnectionString("Default"),
+                    NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger());
+
+            RepositorioUsuario RepoUsuarios = 
+                new RepositorioUsuario(
+                    Configuration.GetConnectionString("Default"),
+                    NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger());
+
+            RepositorioCliente RepoClientes = 
+                new RepositorioCliente(
+                    Configuration.GetConnectionString("Default"),
+                    NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger());
+
+            DataContext data = new DataContext(RepoCadetes, RepoPedidos, RepoUsuarios, RepoClientes, RepoCadeterias);
+            services.AddSingleton(data);
+
+            services.AddControllersWithViews();
             services.AddDistributedMemoryCache();
             services.AddSession(options => 
             {

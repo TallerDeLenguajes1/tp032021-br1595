@@ -7,10 +7,10 @@ namespace EntidadesSistema
 {
     public class Usuario
     {
-        private string nombre;
-        private int clearance;
-
-        public string Nombre { get => nombre; set => nombre = value; }
-        public int Clearance { get => clearance; set => clearance = value; }
+        public string UsuarioID { get; set; }
+        public string Nombre { get; set; }
+        public int Clearance { get; set; }
+        public string Email { get; set; }
+        public string Contrasenia { get; set; }
     }
 }

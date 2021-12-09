@@ -5,55 +5,73 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using EntidadesSistema;
+using Microsoft.AspNetCore.Http;
 using tp032021_br1595.Models;
+using tp032021_br1595.Models.Repostorios;
+using AutoMapper;
 
 namespace tp032021_br1595.Controllers
 {
     public class PedidoController : Controller
     {
+        private readonly DataContext _db;
         private readonly ILogger<PedidoController> _logger;
-        //private readonly DBTemporal _dB;
-        private readonly RepositorioPedido _dBP;
-        private readonly RepositorioCadete _dB;
-        private readonly RepositorioCliente _dBCL;
+        private readonly IMapper mapper;
 
-        public PedidoController(ILogger<PedidoController> logger, RepositorioPedido DBP/*DBTemporal DB*/, RepositorioCadete DB, RepositorioCliente DBCL) 
+        public PedidoController(ILogger<PedidoController> logger, DataContext DB, IMapper mapper)
         {
             _logger = logger;
-            _dBP = DBP;
-            _dB = DB;
-            _dBCL = DBCL;
+            _db = DB;
+            this.mapper = mapper;
         }
         public IActionResult Index()
         {
-            return View(_dBP.getAll());
+            try
+            {
+                List<Pedido> listadoPedidos = _db.Pedidos.getAll();
+                var listPedidoViewModel = mapper.Map<List<PedidoViewModel>>(listadoPedidos);
+                return View(listPedidoViewModel);
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
         public IActionResult AltaPedido()
-        {
-            return View(_dBP.getOneCadetesClientes(_dB, _dBCL));
+        {///VER
+            return View(_db.Pedidos.getOneCadetesClientes(_db));
         }
         public IActionResult AgregarPedido()
         {
-            return View(new Pedido());
+            return View();
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AgregarPedido(Pedido _Pedido)
+        public IActionResult AgregarPedido(string Observacion)
         {
-            //string estado = "En curso";
-            //int numero = _dB.ReadPedidosAlmacenados().Count() + 1;
-            //_dB.AddPedido(numero, _Observacion, estado, _DNI, _Nombre, _Direccion, _Telefono, _CodigoCadete);
-            _dBP.addPedido(_Pedido);
-            return Redirect("Index");
+            try
+            {
+                Pedido pedido = new Pedido()
+                {
+                    ClienteID = Convert.ToInt32(HttpContext.Session.GetString("UsuarioID")),
+                    Observacion = Observacion
+
+                };
+                _db.Pedidos.addPedido(pedido);
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
         public IActionResult ListaPedidos()
         {
-            //return View(_dB.ReadPedidosAlmacenados());
-            return View();
+            return View(_db.Pedidos.getAll());
         }
     }
 }
