@@ -1300,3 +1300,4 @@ D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\bin\Debug\net5.0\NLog.Web.AspNetCor
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\bin\Debug\net5.0\NLog.config
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Pedido\AltaPedido - Copy.cshtml.g.cs
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Usuario\AltaUsuario.cshtml.g.cs
+D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Cadete\IndexReadmit.cshtml.g.cs

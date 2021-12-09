@@ -1,0 +1,40 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<EntidadesSistema.CadeteViewModel>
+<div class="text-center">
+    <h2 class="display-4">Cadetes dados de baja</h2>
+</div>
+
+<div>
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Telefono</th>
+            <th>Direccion</th>
+            <th>CadeteriaID</th>
+            <th>Cantidad de pedidos realizados</th>
+            <th>Cantidad de pedidos activos</th>
+            <th>Acciones</th>
+        </tr>
+        @foreach (var elemento in Model)
+        {
+            if(elemento.Activo == 0)
+            {
+                <tr>
+                    <td>@elemento.Id</td>
+                    <td>@elemento.Nombre</td>
+                    <td>@elemento.Telefono</td>
+                    <td>@elemento.Direccion</td>
+                    <td>@elemento.CadeteriaId</td>
+                    <td>@elemento.PedidosRealizados</td>
+                    <td>@elemento.PedidosActivos</td>
+                    <td>
+                        <a button type="button" class="btn btn-secondary btn-sm" href="ReadmitCadete?_Id=@elemento.Id">Readmitir</a>
+                    </td>
+                </tr>                
+            }
+        }
+    </table>
+</div>

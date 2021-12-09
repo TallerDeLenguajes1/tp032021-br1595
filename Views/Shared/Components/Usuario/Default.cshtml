@@ -1,6 +1,12 @@
-﻿@model List<EntidadesSistema.OpcionMenu>
-
-@{
+﻿@{
     ViewData["Title"] = "View";
 }
 
+@model IEnumerable<EntidadesSistema.OpcionMenu>
+
+<ul>
+    @foreach (var elemento in Model)
+    {
+        <a asp-controller="@elemento.Controlador" asp-action="@elemento.Url"><li>@elemento.Nombre</li></a>
+    }
+</ul>

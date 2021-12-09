@@ -37,6 +37,21 @@ namespace tp032021_br1595.Controllers
             }
         }
 
+        public IActionResult IndexReadmit()
+        {
+            try
+            {
+                List<Cadete> listaCadetes = _db.Cadetes.getAll();
+                var listCadetes = mapper.Map<List<CadeteViewModel>>(listaCadetes);
+                return View(listCadetes);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                return NotFound();
+            }
+        }
+
         public IActionResult AltaCadete()
         {
             try
@@ -84,7 +99,24 @@ namespace tp032021_br1595.Controllers
 
         public IActionResult DeleteCadete(int _Id)
         {
-            return View(_db.Cadetes.getOne(_Id));
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Cadete cadete = _db.Cadetes.getOne(_Id);
+                    var cadeteVM = mapper.Map<DeleteCadeteViewModel>(cadete);
+                    return View(cadeteVM);
+                }
+                else
+                {
+                    return RedirectToAction(nameof(ModifyCadete));
+                }                
+            }
+            catch(Exception ex)
+            {
+                string error = ex.ToString();
+                return NotFound();
+            }
         }
 
         public IActionResult DeleteForGoodCadete(int _Id)
@@ -92,7 +124,13 @@ namespace tp032021_br1595.Controllers
             _db.Cadetes.deleteCadete(_Id);
             return RedirectToAction("Index");
         }
-        
+
+        public IActionResult ReadmitCadete(int _Id)
+        {
+            _db.Cadetes.readmitCadete(_Id);
+            return RedirectToAction("Index");
+        }
+
         public IActionResult ModifyCadete(int _Id)
         {
             try
