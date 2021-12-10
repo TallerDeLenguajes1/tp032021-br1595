@@ -77,4 +77,5 @@ namespace EntidadesSistema
         public LoginViewModel(){}
 
     }
+
 }

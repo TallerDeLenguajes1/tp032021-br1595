@@ -18,6 +18,7 @@ namespace EntidadesSistema
         private int pedidosRealizados;
         private int pedidosActivos;
         private int activo;
+        public int UsuarioID { get; set; }
 
         public int Id { get => id; set => id = value; }
         public string Nombre { get => nombre; set => nombre = value; }

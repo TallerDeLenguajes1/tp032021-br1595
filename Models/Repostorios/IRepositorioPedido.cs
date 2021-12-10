@@ -12,11 +12,13 @@ namespace tp032021_br1595.Models.SQLite
         List<Pedido> getAll();
         void addPedido(Pedido _Pedido);
         void addPedidoCadete(Pedido _Pedido, Cadete _Cadete);
-        void cancelPedido(Pedido _Pedido);
-        void finishPedido(Pedido _Pedido);
+        void cancelPedido(int _CodigoPedido);
+        void finishPedido(int _CodigoPedido);
+        void AceptarPedido(int _CodigoPedido, int Codigo);
         PedidoViewModel getOneCadetesClientes(DataContext _DB);
         List<Pedido> getAllPedidosCliente(int _CodigoCliente);
-        void cancelarPedido(int _Id);
+        List<Pedido> getAllDisponibles();
+        List<Pedido> getAllPedidosCadete(int _CodigoCliente);
 
     }
 }

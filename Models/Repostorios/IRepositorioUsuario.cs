@@ -9,5 +9,6 @@ namespace tp032021_br1595.Models.SQLite
         Usuario StartLogin(string _Username, string _Contrasena);
         List<OpcionMenu> ObtenerOpciones(int id);
         void addUsuario(Usuario _Usuario);
+        string obtenerCodigo(int _Codigo);
     }
 }

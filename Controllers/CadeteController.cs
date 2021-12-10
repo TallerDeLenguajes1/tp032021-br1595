@@ -103,7 +103,7 @@ namespace tp032021_br1595.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Cadete cadete = _db.Cadetes.getOne(_Id);
+                    Cadete cadete = _db.Cadetes.getOne(_Id, 0);
                     var cadeteVM = mapper.Map<DeleteCadeteViewModel>(cadete);
                     return View(cadeteVM);
                 }

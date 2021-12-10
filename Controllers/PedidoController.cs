@@ -76,10 +76,51 @@ namespace tp032021_br1595.Controllers
                 return NotFound();
             }
         }
-        //No recuerdo usarlo pero lo dejo por las dudas rompa algo
         public IActionResult ListaPedidos()
         {
-            return View(_db.Pedidos.getAll());
+            try
+            {
+                List<Pedido> listadoPedidos = _db.Pedidos.getAllDisponibles();
+                var listPedidoViewModel = mapper.Map<List<PedidoViewModel>>(listadoPedidos);
+                return View(listPedidoViewModel);
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
+        public IActionResult CancelarPedido(int _Id)
+        {
+            _db.Pedidos.cancelPedido(_Id);
+            if(HttpContext.Session.GetInt32("Clearance") == 3)
+            {
+                return RedirectToAction("ListaPedidosCadete");
+            }
+            else
+            {
+                return RedirectToAction("EstadoPedidos");
+            }
+
+        }
+        public IActionResult AceptarPedido(int _Id)
+        {
+            _db.Pedidos.AceptarPedido(_Id, Convert.ToInt32(HttpContext.Session.GetString("Codigo")));
+            return RedirectToAction("ListaPedidos");
+        }  
+
+        public IActionResult ListaPedidosCadete()
+        {
+            try
+            {
+                List<Pedido> listadoPedidos = _db.Pedidos.getAllPedidosCadete(Convert.ToInt32(HttpContext.Session.GetString("Codigo")));
+                var listPedidoViewModel = mapper.Map<List<PedidoViewModel>>(listadoPedidos);
+                return View(listPedidoViewModel);
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
         public IActionResult EstadoPedidos()
         {
@@ -93,11 +134,6 @@ namespace tp032021_br1595.Controllers
             {
                 return NotFound();
             }
-        }
-        public IActionResult CancelarPedido(int _Id)
-        {
-            _db.Pedidos.cancelarPedido(_Id);
-            return RedirectToAction("EstadoPedidos");
         }
     }
 }

@@ -1302,3 +1302,5 @@ D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Usuari
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Cadete\IndexReadmit.cshtml.g.cs
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Pedido\EstadoPedidos.cshtml.g.cs
 D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Usuario\Index.cshtml.g.cs
+D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Pedido\ListaPedidos.cshtml.g.cs
+D:\a\Fac\PU\2_2 Taller 2\Tps\tp032021-br1595\obj\Debug\net5.0\Razor\Views\Pedido\ListaPedidosCadete.cshtml.g.cs

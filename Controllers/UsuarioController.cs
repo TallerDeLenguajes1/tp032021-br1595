@@ -81,6 +81,7 @@ namespace tp032021_br1595.Controllers
                     HttpContext.Session.SetString ("Usuario", _Username);
                     HttpContext.Session.SetInt32("Clearance", usuario.Clearance);
                     HttpContext.Session.SetString("UsuarioID", usuario.UsuarioID);
+                    HttpContext.Session.SetString("Codigo", usuario.Codigo);
                     return View();
                 }
                 else

@@ -103,12 +103,35 @@ namespace tp032021_br1595.Models.SQLite
                         conexion.Close();
                     }
                 }
+                usuario.Codigo = obtenerCodigo(Convert.ToInt32(usuario.UsuarioID)); 
             }
             catch (Exception ex)
             {
                 string error = ex.ToString();
             }
             return usuario;
+        }
+
+        public string obtenerCodigo(int _Codigo)
+        {
+            string codigo = "";
+            string SQLQuery = @"SELECT cadeteID FROM Cadetes WHERE usuarioID = @usuarioID";
+            using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
+            {
+                using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
+                {
+                    var asd = command.Parameters.AddWithValue("@usuarioID", _Codigo);
+                    conexion.Open();
+                    SQLiteDataReader DataReader = command.ExecuteReader();
+                    if (DataReader.Read())
+                    {
+                        codigo = DataReader["cadeteID"].ToString();
+                    }
+                    DataReader.Close();
+                    conexion.Close();
+                }
+            }
+            return codigo;
         }
 
         public List<OpcionMenu> ObtenerOpciones(int _Clearance)

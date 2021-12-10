@@ -57,17 +57,29 @@ namespace tp032021_br1595.Models.SQLite
             return ListadoCadetes;
         }
 
-        public Cadete getOne(int _CadeteCodigo)
+        public Cadete getOne(int _CadeteCodigo, int _CodigoUsuario)
         {
             Cadete cadeteElegido = new Cadete();
+            int _CodigoAUsar = 0;
+            string SQLQuery = "";
             try
             {
-                string SQLQuery = @"SELECT * FROM Cadetes WHERE cadeteID = " + _CadeteCodigo + ";"; 
+                if(_CodigoUsuario != 0)
+                {
+                    _CodigoAUsar = _CodigoUsuario;
+                    SQLQuery = @"SELECT * FROM Cadetes WHERE usuarioID = @Codigo";
+                }
+                else
+                {
+                    _CodigoAUsar = _CadeteCodigo;
+                    SQLQuery = @"SELECT * FROM Cadetes WHERE cadeteID = @Codigo";
+                }
                 using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
                 {
                     using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
                     {
                         conexion.Open();
+                        command.Parameters.AddWithValue("@codigo", _CodigoAUsar);
                         SQLiteDataReader DataReader = command.ExecuteReader();
                         if (DataReader.Read())
                         {
@@ -78,7 +90,8 @@ namespace tp032021_br1595.Models.SQLite
                             cadeteElegido.CadeteriaId = DataReader["cadeteriaID"].ToString();
                             cadeteElegido.PedidosRealizados = Convert.ToInt32(DataReader["cadetePedidosRealizados"]);
                             cadeteElegido.PedidosActivos = Convert.ToInt32(DataReader["cadetePedidosActivos"]);
-                        }
+                            cadeteElegido.UsuarioID = Convert.ToInt32(DataReader["usuarioID"]);
+;                        }
                         DataReader.Close();
                         conexion.Close();
                     }
@@ -93,7 +106,7 @@ namespace tp032021_br1595.Models.SQLite
         public CadeteViewModel getOneCadeteria(int _CadeteCodigo, DataContext _db)
         {
             CadeteViewModel cadeteElegido = new CadeteViewModel();
-            cadeteElegido.Cadete = getOne(_CadeteCodigo);
+            cadeteElegido.Cadete = getOne(_CadeteCodigo, 0);
             cadeteElegido.ListaCadeterias = _db.Cadeterias.getAll();
             return cadeteElegido;
         }
