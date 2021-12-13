@@ -53,6 +53,7 @@ namespace tp032021_br1595.Controllers
                 if (ModelState.IsValid)
                 {
                     var usuariodb = mapper.Map<Usuario>(_Usuario);
+                    usuariodb.Clearance = 4;
                     _db.Usuarios.addUsuario(usuariodb);
                     return RedirectToAction(nameof(Index), "Home");
                 }

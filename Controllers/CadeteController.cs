@@ -83,8 +83,25 @@ namespace tp032021_br1595.Controllers
                 if (ModelState.IsValid)
                 {
                     var cadetedb = mapper.Map<Cadete>(_Cadete);
-                    _db.Cadetes.addCadete(cadetedb);
-                    return RedirectToAction(nameof(Index));
+                    Usuario cadeteUsuario = new Usuario
+                    {
+                        Nombre = cadetedb.Nombre,
+                        Contrasenia = cadetedb.Nombre,
+                        Clearance = 3,
+                        Email = cadetedb.Nombre + "@cadete.com",
+                    };
+                    if(_db.Usuarios.controlNombreCadete(cadeteUsuario.Nombre))
+                    {
+                        cadeteUsuario.Clearance = 3;
+                        _db.Usuarios.addUsuario(cadeteUsuario);
+                        cadetedb.UsuarioID = _db.Usuarios.getID(cadetedb.Nombre);
+                        _db.Cadetes.addCadete(cadetedb);
+                        return RedirectToAction(nameof(Index));
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
                 }
                 else
                 {
@@ -119,15 +136,15 @@ namespace tp032021_br1595.Controllers
             }
         }
 
-        public IActionResult DeleteForGoodCadete(int _Id)
+        public IActionResult DeleteForGoodCadete(int _Id, int _UsuarioID)
         {
-            _db.Cadetes.deleteCadete(_Id);
+            _db.Cadetes.deleteCadete(_Id, _UsuarioID);
             return RedirectToAction("Index");
         }
 
-        public IActionResult ReadmitCadete(int _Id)
+        public IActionResult ReadmitCadete(int _Id, int _UsuarioID)
         {
-            _db.Cadetes.readmitCadete(_Id);
+            _db.Cadetes.readmitCadete(_Id, _UsuarioID);
             return RedirectToAction("Index");
         }
 

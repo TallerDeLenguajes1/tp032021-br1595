@@ -51,11 +51,40 @@ namespace tp032021_br1595.Models.SQLite
             }
             return ListadoUsuarios;
         }
+        public int getID(string cadeteNombre)
+        {
+            try
+            {
+                int id = 999;
+                string SQLQuery = @"SELECT usuarioID FROM Usuarios WHERE usuarioNombre = @username;";
+                using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
+                {
+                    using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
+                    {
+                        command.Parameters.AddWithValue("@username", cadeteNombre);
+                        conexion.Open();
+                        SQLiteDataReader DataReader = command.ExecuteReader();
+                        if (DataReader.Read())
+                        {
+                            id = Convert.ToInt32(DataReader["usuarioID"]);
+                        }
+                        DataReader.Close();
+                        conexion.Close();
+                    }
+                }
+                return id;
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                return 0;
+            }
+        }
         public void addUsuario(Usuario _Usuario)
         {
             try
             {
-                string SQLQuery = @"INSERT INTO Usuarios (usuarioNombre, usuarioPassword, usuarioEmail) VALUES (@usuarioNombre, @usuarioPassword, @usuarioEmail)";
+                string SQLQuery = @"INSERT INTO Usuarios (usuarioNombre, usuarioPassword, usuarioClearance, usuarioEmail) VALUES (@usuarioNombre, @usuarioPassword, @usuarioClearance, @usuarioEmail)";
                 using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
                 {
                     using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
@@ -63,6 +92,7 @@ namespace tp032021_br1595.Models.SQLite
                         command.Parameters.AddWithValue("@usuarioNombre", _Usuario.Nombre);
                         command.Parameters.AddWithValue("@usuarioPassword", _Usuario.Contrasenia);
                         command.Parameters.AddWithValue("@usuarioEmail", _Usuario.Email);
+                        command.Parameters.AddWithValue("@usuarioClearance", _Usuario.Clearance); 
                         conexion.Open();
                         command.ExecuteNonQuery();
                         conexion.Close();
@@ -73,6 +103,34 @@ namespace tp032021_br1595.Models.SQLite
             {
                 string error = ex.ToString();
             }
+        }
+        public bool controlNombreCadete(string cadeteNombre)
+        {
+            bool resultado = false;
+            try
+            {
+                string SQLQuery = @"SELECT usuarioID FROM Usuarios WHERE usuarioNombre = @username;";
+                using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
+                {
+                    using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
+                    {
+                        command.Parameters.AddWithValue("@username", cadeteNombre);
+                        conexion.Open();
+                        SQLiteDataReader DataReader = command.ExecuteReader();
+                        if (!DataReader.Read())
+                        {
+                            resultado = true;
+                        }
+                        DataReader.Close();
+                        conexion.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+            return resultado;
         }
         public Usuario StartLogin(string _Username, string _Contrasena)
         {

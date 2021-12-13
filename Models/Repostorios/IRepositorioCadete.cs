@@ -14,7 +14,7 @@ namespace tp032021_br1595.Models.SQLite
         CadeteViewModel getOneCadeteria(int _CadeteCodigo, DataContext _db);
         void addCadete(Cadete _Cadete);
         void modifyCadete(Cadete _Cadete);
-        void readmitCadete(int _CadeteCodigo);
-        void deleteCadete(int _CadeteCodigo);
+        void readmitCadete(int _CadeteCodigo, int _UsuarioID);
+        void deleteCadete(int _CadeteCodigo, int _UsuarioID);
     }
 }

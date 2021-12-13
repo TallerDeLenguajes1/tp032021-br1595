@@ -23,6 +23,7 @@ namespace EntidadesSistema
         public List<Pedido> ListadoPedidos { get; set; }
         [Required(ErrorMessage = "El campo Nombre es requerido")]
         [StringLength(100)]
+        public int UsuarioID { get; set; }
         public string CadeteriaId { get; set; }
         public int PedidosRealizados { get; set; }
         public int PedidosActivos { get; set; }
@@ -55,6 +56,7 @@ namespace EntidadesSistema
         public string Nombre { get; set; }
         public string Direccion { get; set; }
         public string Telefono { get; set; }
+        public int UsuarioID { get; set; }
         public int PedidosRealizados { get; set; }
         public int PedidosActivos { get; set; }
         public DeleteCadeteViewModel() { }

@@ -10,5 +10,7 @@ namespace tp032021_br1595.Models.SQLite
         List<OpcionMenu> ObtenerOpciones(int id);
         void addUsuario(Usuario _Usuario);
         string obtenerCodigo(int _Codigo);
+        int getID(string cadeteNombre);
+        bool controlNombreCadete(string cadeteNombre);
     }
 }

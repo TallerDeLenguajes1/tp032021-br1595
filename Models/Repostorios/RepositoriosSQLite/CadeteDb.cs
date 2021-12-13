@@ -42,7 +42,8 @@ namespace tp032021_br1595.Models.SQLite
                             CadeteriaId = DataReader["cadeteriaID"].ToString(),
                             Activo = Convert.ToInt32(DataReader["cadeteActivo"]),
                             PedidosActivos = Convert.ToInt32(DataReader["cadetePedidosActivos"]),
-                            PedidosRealizados = Convert.ToInt32(DataReader["cadetePedidosRealizados"])
+                            PedidosRealizados = Convert.ToInt32(DataReader["cadetePedidosRealizados"]),
+                            UsuarioID = Convert.ToInt32(DataReader["usuarioID"])
                         };
                         ListadoCadetes.Add(cadete);
                     }
@@ -115,7 +116,7 @@ namespace tp032021_br1595.Models.SQLite
         {
             try
             {
-                string SQLQuery = @"INSERT INTO Cadetes (cadeteNombre, cadeteTelefono, cadeteDireccion, cadeteriaID) VALUES (@cadeteNombre, @cadeteTelefono, @cadeteDireccion, @cadeteCadeteriaID)";
+                string SQLQuery = @"INSERT INTO Cadetes (cadeteNombre, cadeteTelefono, cadeteDireccion, cadeteriaID, usuarioID) VALUES (@cadeteNombre, @cadeteTelefono, @cadeteDireccion, @cadeteCadeteriaID, @usuarioID)";
                 using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
                 {
                     using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
@@ -124,6 +125,7 @@ namespace tp032021_br1595.Models.SQLite
                         command.Parameters.AddWithValue("@cadeteTelefono", _Cadete.Telefono);
                         command.Parameters.AddWithValue("@cadeteDireccion", _Cadete.Direccion);
                         command.Parameters.AddWithValue("@cadeteCadeteriaID", _Cadete.CadeteriaId);
+                        command.Parameters.AddWithValue("@usuarioID", _Cadete.UsuarioID);
                         conexion.Open();
                         command.ExecuteNonQuery();
                         conexion.Close();
@@ -161,16 +163,18 @@ namespace tp032021_br1595.Models.SQLite
             }
         }
 
-        public void readmitCadete(int _CadeteCodigo)
+        public void readmitCadete(int _CadeteCodigo, int _UsuarioID)
         {
-            executeQueryEstado(_CadeteCodigo, 1);
+            executeQueryEstadoCadete(_CadeteCodigo, 1);
+            executeQueryEstadoUser(_UsuarioID, 1);
         }
-        public void deleteCadete(int _CadeteCodigo)
+        public void deleteCadete(int _CadeteCodigo, int _UsuarioID)
         {
-            executeQueryEstado(_CadeteCodigo, 0);
+            executeQueryEstadoCadete(_CadeteCodigo, 0);
+            executeQueryEstadoUser(_UsuarioID, 0);
         }
 
-        public void executeQueryEstado(int _CadeteCodigo, int _Estado)
+        public void executeQueryEstadoCadete(int _CadeteCodigo, int _Estado)
         {
             try
             {
@@ -181,6 +185,28 @@ namespace tp032021_br1595.Models.SQLite
                     {
                         command.Parameters.AddWithValue("@cadeteActivo", _Estado);
                         command.Parameters.AddWithValue("@cadeteID", _CadeteCodigo);
+                        conexion.Open();
+                        command.ExecuteNonQuery();
+                        conexion.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+        }
+        public void executeQueryEstadoUser(int _UsuarioID, int _Estado)
+        {
+            try
+            {
+                string SQLQuery = @"UPDATE Usuarios SET usuarioActivo = @usuarioActivo WHERE usuarioID = @usuarioID;";
+                using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
+                {
+                    using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
+                    {
+                        command.Parameters.AddWithValue("@usuarioActivo", _Estado);
+                        command.Parameters.AddWithValue("@usuarioID", _UsuarioID);
                         conexion.Open();
                         command.ExecuteNonQuery();
                         conexion.Close();
