@@ -90,7 +90,7 @@ namespace tp032021_br1595.Controllers
                         Clearance = 3,
                         Email = cadetedb.Nombre + "@cadete.com",
                     };
-                    if(_db.Usuarios.controlNombreCadete(cadeteUsuario.Nombre))
+                    if(_db.Usuarios.controlNombre(cadeteUsuario.Nombre))
                     {
                         cadeteUsuario.Clearance = 3;
                         _db.Usuarios.addUsuario(cadeteUsuario);
@@ -139,13 +139,13 @@ namespace tp032021_br1595.Controllers
         public IActionResult DeleteForGoodCadete(int _Id, int _UsuarioID)
         {
             _db.Cadetes.deleteCadete(_Id, _UsuarioID);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult ReadmitCadete(int _Id, int _UsuarioID)
         {
             _db.Cadetes.readmitCadete(_Id, _UsuarioID);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(IndexReadmit));
         }
 
         public IActionResult ModifyCadete(int _Id)

@@ -34,10 +34,11 @@ namespace tp032021_br1595.Models.SQLite
                     {
                         Cliente cliente = new Cliente()
                         {
-                            Id = (int)DataReader["clienteID"],
+                            Id = Convert.ToInt32(DataReader["clienteID"]),
                             Nombre = DataReader["clienteNombre"].ToString(),
                             Telefono = DataReader["clienteTelefono"].ToString(),
-                            Direccion = DataReader["clienteDireccion"].ToString()
+                            Direccion = DataReader["clienteDireccion"].ToString(),
+                            UsuarioID = Convert.ToInt32(DataReader["usuarioID"])
                         };
                         ListadoClientes.Add(cliente);
                     }
@@ -58,9 +59,17 @@ namespace tp032021_br1595.Models.SQLite
             {
                 using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
                 {
-                    conexion.Open();
-                    string SQLQuery = @"INSERT INTO Clientes SET clienteNombre ='" + _Cliente.Nombre + "', clienteTelefono ='" + _Cliente.Telefono + "', clienteDireccion ='" + _Cliente.Direccion + "', clienteEstado = 1 ;";
-                    SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion);
+                    string SQLQuery = @"INSERT INTO Clientes (clienteNombre, clienteTelefono, clienteDireccion, usuarioID) VALUES (@clienteNombre, @clienteTelefono, @clienteDireccion, @usuarioID);";
+                    using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
+                    {
+                        command.Parameters.AddWithValue("@clienteNombre", _Cliente.Nombre);
+                        command.Parameters.AddWithValue("@clienteTelefono", _Cliente.Telefono);
+                        command.Parameters.AddWithValue("@clienteDireccion", _Cliente.Direccion);
+                        command.Parameters.AddWithValue("@usuarioID", _Cliente.UsuarioID);
+                        conexion.Open();
+                        command.ExecuteNonQuery();
+                        conexion.Close();
+                    }
                     conexion.Close();
                 }
             }
@@ -72,9 +81,11 @@ namespace tp032021_br1595.Models.SQLite
         public void readmitCliente(int _ClienteCodigo)
         {
             executeQueryEstadoCliente(_ClienteCodigo, 1);
+            executeQueryEstadoCliente(_ClienteCodigo, 0);
         }
         public void deleteCliente(int _ClienteCodigo)
         {
+            executeQueryEstadoCliente(_ClienteCodigo, 0);
             executeQueryEstadoCliente(_ClienteCodigo, 0);
         }
 
@@ -90,6 +101,28 @@ namespace tp032021_br1595.Models.SQLite
                     {
                         command.Parameters.AddWithValue("@estado", _Estado);
                         command.Parameters.AddWithValue("@clienteCodigo", _ClienteCodigo);
+                        conexion.Open();
+                        command.ExecuteNonQuery();
+                        conexion.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+        }
+        public void executeQueryEstadoClienteUser(int _UsuarioID, int _Estado)
+        {
+            try
+            {
+                string SQLQuery = @"UPDATE Usuarios SET usuarioActivo = @usuarioActivo WHERE usuarioID = @usuarioID;";
+                using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
+                {
+                    using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
+                    {
+                        command.Parameters.AddWithValue("@usuarioActivo", _Estado);
+                        command.Parameters.AddWithValue("@usuarioID", _UsuarioID);
                         conexion.Open();
                         command.ExecuteNonQuery();
                         conexion.Close();

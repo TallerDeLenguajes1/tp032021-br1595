@@ -104,7 +104,7 @@ namespace tp032021_br1595.Models.SQLite
                 string error = ex.ToString();
             }
         }
-        public bool controlNombreCadete(string cadeteNombre)
+        public bool controlNombre(string _Nombre)
         {
             bool resultado = false;
             try
@@ -114,7 +114,7 @@ namespace tp032021_br1595.Models.SQLite
                 {
                     using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
                     {
-                        command.Parameters.AddWithValue("@username", cadeteNombre);
+                        command.Parameters.AddWithValue("@username", _Nombre);
                         conexion.Open();
                         SQLiteDataReader DataReader = command.ExecuteReader();
                         if (!DataReader.Read())
@@ -142,7 +142,7 @@ namespace tp032021_br1595.Models.SQLite
             };
             try
             {
-                string SQLQuery = @"SELECT usuarioID, usuarioNombre, usuarioClearance FROM Usuarios WHERE usuarioNombre = @username AND usuarioPassword = @contrasena;";
+                string SQLQuery = @"SELECT usuarioID, usuarioNombre, usuarioClearance FROM Usuarios WHERE usuarioNombre = @username AND usuarioPassword = @contrasena AND usuarioActivo = 1;";
                 using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
                 {
                     using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))

@@ -13,10 +13,17 @@ namespace EntidadesSistema
         [Required(ErrorMessage = "Este Campo es requerido")]
         [StringLength(100, ErrorMessage = "El campo debe tener como máximo {0}")]
         public string Nombre { get; set; }
+        [Required(ErrorMessage = "Este Campo es requerido")]
+        [StringLength(100, ErrorMessage = "El campo debe tener como máximo {0}")]
+        public string Direccion { get; set; }
 
         [Required(ErrorMessage = "Este Campo es requerido")]
         [StringLength(10, ErrorMessage = "El campo debe tener como máximo {0}")]
         public string Contrasenia { get; set; }
+
+        [Required(ErrorMessage = "Este telefono es requerido")]
+        [StringLength(10, ErrorMessage = "El campo debe tener como máximo {0}")]
+        public string Telefono { get; set; }
 
         [Required(ErrorMessage = "Este Campo es requerido")]
         [EmailAddress(ErrorMessage = "El campo no coincide con un email válido")]

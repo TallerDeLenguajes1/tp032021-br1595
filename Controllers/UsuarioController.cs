@@ -53,9 +53,25 @@ namespace tp032021_br1595.Controllers
                 if (ModelState.IsValid)
                 {
                     var usuariodb = mapper.Map<Usuario>(_Usuario);
-                    usuariodb.Clearance = 4;
-                    _db.Usuarios.addUsuario(usuariodb);
-                    return RedirectToAction(nameof(Index), "Home");
+                    if (_db.Usuarios.controlNombre(usuariodb.Nombre))
+                    {
+                        usuariodb.Clearance = 4;
+                        _db.Usuarios.addUsuario(usuariodb);
+                        usuariodb.UsuarioID = _db.Usuarios.getID(usuariodb.Nombre).ToString();
+                        Cliente clientedb = new Cliente()
+                        {
+                            Nombre = usuariodb.Nombre,
+                            Direccion = _Usuario.Direccion,
+                            UsuarioID = Convert.ToInt32(usuariodb.UsuarioID),
+                            Telefono = _Usuario.Telefono
+                        };
+                        _db.Clientes.addCliente(clientedb);
+                        return RedirectToAction(nameof(Index), "Home");
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
                 }
                 else
                 {

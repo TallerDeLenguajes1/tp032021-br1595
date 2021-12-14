@@ -7,22 +7,15 @@ namespace EntidadesSistema
 {
     public class Cliente
     {
-        private string dni;
-        private int id;
-        private string nombre;
-        private string direccion;
-        private string telefono;
-
-        public int Id { get => id; set => id = value; }
-        public string Nombre { get => nombre; set => nombre = value; }
-        public string Direccion { get => direccion; set => direccion = value; }
-        public string Telefono { get => telefono; set => telefono = value; }
-        public string Dni { get => dni; set => dni = value; }
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public string Direccion { get; set; }
+        public string Telefono { get; set; }
+        public int UsuarioID { get; set; }
 
         public Cliente() { }
         public Cliente(string _DNI, string _Nombre, string _Direccion, string _Telefono)
         {
-            this.Dni = _DNI;
             this.Nombre = _Nombre;
             this.Direccion = _Direccion;
             this.Telefono = _Telefono;
