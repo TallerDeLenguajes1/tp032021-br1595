@@ -243,7 +243,7 @@ namespace tp032021_br1595.Models.SQLite
         {
             try
             {
-                string SQLQuery = @"UPDATE Cadetes SET cadetePedidosActivos = 0, cadetePedidosRealizados = cadetePedidosRealizados + 1 WHERE cadeteID = @cadeteID;";
+                string SQLQuery = @"UPDATE Cadetes SET cadetePedidosActivos =  cadetePedidosActivos - 1, cadetePedidosRealizados = cadetePedidosRealizados + 1 WHERE cadeteID = @cadeteID;";
                 using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
                 {
                     using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
