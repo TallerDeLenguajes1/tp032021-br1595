@@ -106,9 +106,16 @@ namespace tp032021_br1595.Controllers
         public IActionResult AceptarPedido(int _Id)
         {
             _db.Pedidos.AceptarPedido(_Id, Convert.ToInt32(HttpContext.Session.GetString("Codigo")));
+            _db.Cadetes.CantidadPedidosActivos(Convert.ToInt32(HttpContext.Session.GetString("Codigo")));
             return RedirectToAction("ListaPedidos");
-        }  
+        }
 
+        public IActionResult completarPedido(int _Id)
+        {
+            _db.Pedidos.finishPedido(_Id);
+            _db.Cadetes.CantidadPedidosRealizados(Convert.ToInt32(HttpContext.Session.GetString("Codigo")));
+            return RedirectToAction("ListaPedidosCadete");
+        }
         public IActionResult ListaPedidosCadete()
         {
             try

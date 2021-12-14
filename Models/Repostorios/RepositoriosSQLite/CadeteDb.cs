@@ -218,5 +218,47 @@ namespace tp032021_br1595.Models.SQLite
                 string error = ex.ToString();
             }
         }
+        public void CantidadPedidosActivos(int _IdCadete)
+        {
+            try
+            {
+                string SQLQuery = @"UPDATE Cadetes SET cadetePedidosActivos = cadetePedidosActivos + 1 WHERE cadeteID = @cadeteID;";
+                using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
+                {
+                    using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
+                    {
+                        command.Parameters.AddWithValue("@cadeteID", _IdCadete);
+                        conexion.Open();
+                        command.ExecuteNonQuery();
+                        conexion.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+        }
+        public void CantidadPedidosRealizados(int _IdCadete)
+        {
+            try
+            {
+                string SQLQuery = @"UPDATE Cadetes SET cadetePedidosActivos = 0, cadetePedidosRealizados = cadetePedidosRealizados + 1 WHERE cadeteID = @cadeteID;";
+                using (SQLiteConnection conexion = new SQLiteConnection(connectionString))
+                {
+                    using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
+                    {
+                        command.Parameters.AddWithValue("@cadeteID", _IdCadete);
+                        conexion.Open();
+                        command.ExecuteNonQuery();
+                        conexion.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+        }
     }
 }

@@ -16,7 +16,7 @@
             <th>Numero</th> 
             <th>Direccion</th>
             <th>Obersvacion</th>
-            <th>Destino</th>
+            <th>ID Cliente</th>
             <th>Estado</th>
             <th>Acción</th>
         </tr>
@@ -24,14 +24,14 @@
         {
                 <tr>
                     <td>@item.Numero</td>
-                    <td>@item.ClienteID</td>
+                    <td>@item.Direccion</td>
                     <td>@item.Observacion</td>
                     <td>@item.ClienteID</td>
                     <td>@item.Estado</td>
-                    @if(@item.Estado != "Entregado" && @item.Estado != "Cancelado")
+                    @if(@item.Estado != "Entregado" && @item.Estado != "Cancelado" && @item.Estado != "Completado")
                     {
                         <td>
-                            <a button type="button" class="btn btn-secondary btn-sm" href="CancelarPedido?_Id=@item.Numero">Cancelar</a>
+                            <a button type="button" class="btn btn-secondary btn-sm" href="completarPedido?_Id=@item.Numero">Terminar</a>
                         </td>
             }
                     else

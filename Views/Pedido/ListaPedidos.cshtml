@@ -16,7 +16,7 @@
             <th>Numero</th> 
             <th>Direccion</th>
             <th>Obersvacion</th>
-            <th>Destino</th>
+            <th>ID Cliente</th>
             <th>Estado</th>
             <th>Acción</th>
         </tr>
@@ -26,12 +26,12 @@
             {
                 <tr>
                     <td>@item.Numero</td>
-                    <td>@item.ClienteID</td>
+                    <td>@item.Direccion</td>
                     <td>@item.Observacion</td>
                     <td>@item.ClienteID</td>
                     <td>@item.Estado</td>
                     <td>
-                        <a button type="button" class="btn btn-secondary btn-sm" href="AceptarPedido?_Id=@item.Numero">Aceptar</a>
+                        <a button type="button" class="btn btn-secondary btn-sm" href="AceptarPedido?_Id=@item.Numero&_IdCadete=@item.CodigoCadete">Aceptar</a>
                     </td>
                 </tr>
             }

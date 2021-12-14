@@ -178,7 +178,7 @@ namespace tp032021_br1595.Models.SQLite
             {
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, conexion))
                 {
-                    var asd = command.Parameters.AddWithValue("@usuarioID", _Codigo);
+                    command.Parameters.AddWithValue("@usuarioID", _Codigo);
                     conexion.Open();
                     SQLiteDataReader DataReader = command.ExecuteReader();
                     if (DataReader.Read())

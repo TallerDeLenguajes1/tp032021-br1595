@@ -16,5 +16,7 @@ namespace tp032021_br1595.Models.SQLite
         void modifyCadete(Cadete _Cadete);
         void readmitCadete(int _CadeteCodigo, int _UsuarioID);
         void deleteCadete(int _CadeteCodigo, int _UsuarioID);
+        void CantidadPedidosActivos(int _IdCadete);
+        void CantidadPedidosRealizados(int _IdCadete);
     }
 }
